@@ -6,7 +6,7 @@
         xmlns:Views="clr-namespace:DBO.View" x:Class="DBO.View.MainView"
         xmlns:vm ="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
         mc:Ignorable="d" 
-        Title="MainView" MinHeight="640" Height="640" MinWidth="1020" Width="1024" Icon="img/Delphin.ico">
+        Title="MainView" MinHeight="640"  MinWidth="1020" WindowState="Maximized" Icon="img/Delphin.ico">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -44,10 +44,36 @@
                 <MenuItem Header="Выдача/Внесание" HorizontalAlignment="Left" Width="250" Height="20" Command="{Binding InOutCommand}" />
             </MenuItem>
         </Menu>
-        <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden" />
-        <Button Content="Продажи" Command="{Binding WindowsSales}" HorizontalAlignment="Left" Margin="10,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Товары" Command="{Binding WindowsGoods}" HorizontalAlignment="Left" Margin="90,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-
-
+        <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+        <Grid Grid.Row="1" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="Продажи" Command="{Binding WindowsSales}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch"/>
+            <Button Content="Товары" Command="{Binding WindowsGoods}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"/>
+            <Button Content="Справочник" Command="{Binding WindowsDirectory}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Stretch"/>
+            <Button Command="{Binding WindowsReports}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="3" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="img/reports.png"></Image>
+                    <TextBlock TextAlignment="Center">
+                            <Run FontSize="15">Отчеты</Run>
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Content="ККМ" Command="{Binding WindowsKKM}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"/>
+            <Button Command="{Binding WindowsService}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="5" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="img/service.png"></Image>
+                    <TextBlock TextAlignment="Center">
+                            <Run FontSize="15">Сервис</Run>
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
