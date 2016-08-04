@@ -1,8 +1,8 @@
-﻿<Application x:Class="DBO.App"
+﻿<Application x:Class="DBO.View.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DBO"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:DBO.View"
+             StartupUri="MainView.xaml">
     <Application.Resources>
          
     </Application.Resources>
