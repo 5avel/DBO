@@ -18,7 +18,6 @@ namespace DBO.ViewModel
             {
                 frameSource = value;
                 OnPropertyChanged("FrameSource");
-                //nhfnfhfhf
             }
         }
 
