@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoodsViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MVVMLib\ObservableObject.cs" />
     <Compile Include="MVVMLib\RelayCommand.cs" />
@@ -48,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="VMGoods\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

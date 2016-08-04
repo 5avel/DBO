@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Configuration\SettingsProvider.cs" />
+    <Compile Include="DAL\GroupsProvider.cs" />
     <Compile Include="DataModels\BaseDataModel.cs" />
     <Compile Include="DataModels\Good.cs" />
     <Compile Include="DataModels\Group.cs" />
