@@ -9,6 +9,10 @@ namespace Model.DAL
 {
     public class GroupsProvider
     {
+        /// <summary>
+        /// Возврасщает список груп
+        /// </summary>
+        /// <returns></returns>
         public List<Group> GetAllGoups()
         {
             using (var db = new DBODataContext())
