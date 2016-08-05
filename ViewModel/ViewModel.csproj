@@ -46,6 +46,7 @@
     <Compile Include="MVVMLib\ObservableObject.cs" />
     <Compile Include="MVVMLib\RelayCommand.cs" />
     <Compile Include="MVVMLib\ViewModelBase.cs" />
+    <Compile Include="MVVMLib\WindowManader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
