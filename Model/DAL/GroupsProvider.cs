@@ -14,12 +14,11 @@ namespace Model.DAL
         {
             using (var db = new DBODataContext())
             {
-                List<Group> groups = db.Groups.Include(x => x.ChildrenGroups).ToList();
-
-                return groups.Where(x => x.ParentId == null).ToList();
-
-
-                //// ыаываыва
+                return db.Groups
+                    .Include(x => x.ChildrenGroups)
+                    .ToList()
+                    .Where(x => x.ParentId == null)
+                    .ToList();
             }
         }
     }
