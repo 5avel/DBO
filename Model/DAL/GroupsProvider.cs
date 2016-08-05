@@ -14,6 +14,9 @@ namespace Model.DAL
             using (var db = new DBODataContext())
             {
                 return db.Groups.ToList();
+
+
+                //// ыаываыва
             }
         }
     }
