@@ -1,4 +1,5 @@
-﻿using Model.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace Model.DAL
         {
             using (var db = new DBODataContext())
             {
-                return db.Groups.ToList();
+                List<Group> groups = db.Groups.Include(x => x.ChildrenGroups).ToList();
+
+                return groups.Where(x => x.ParentId == null).ToList();
 
 
                 //// ыаываыва
