@@ -8,9 +8,10 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DBODataContext))]
-    partial class DBODataContextModelSnapshot : ModelSnapshot
+    [Migration("20160805121238_add_ipcamera_model")]
+    partial class add_ipcamera_model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");

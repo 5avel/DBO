@@ -159,13 +159,19 @@
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Configuration\SettingsProvider.cs" />
     <Compile Include="DAL\GroupsProvider.cs" />
+    <Compile Include="DAL\IpCameraProvider.cs" />
     <Compile Include="DataModels\BaseDataModel.cs" />
     <Compile Include="DataModels\Good.cs" />
     <Compile Include="DataModels\Group.cs" />
+    <Compile Include="DataModels\IpCamera.cs" />
     <Compile Include="DBODataContext.cs" />
     <Compile Include="Migrations\20160804134750_MyFirstMigration.cs" />
     <Compile Include="Migrations\20160804134750_MyFirstMigration.designer.cs">
       <DependentUpon>20160804134750_MyFirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20160805121238_add_ipcamera_model.cs" />
+    <Compile Include="Migrations\20160805121238_add_ipcamera_model.designer.cs">
+      <DependentUpon>20160805121238_add_ipcamera_model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DBODataContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

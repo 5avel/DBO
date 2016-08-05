@@ -55,6 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml.cs">
+      <DependentUpon>ViewAddNewItemIpCamera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewIpCamera\ViewAddNewIpCamera.xaml.cs">
+      <DependentUpon>ViewAddNewIpCamera.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewOperationsPage.xaml.cs">
       <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
     </Compile>
@@ -73,6 +79,14 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewIpCamera\ViewAddNewIpCamera.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewOperationsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

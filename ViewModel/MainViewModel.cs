@@ -45,6 +45,19 @@ namespace DBO.ViewModel
                 }));
             }
         }
+
+        private ICommand _windowsCamera;
+
+        public ICommand WindowsCamera
+        {
+            get
+            {
+                return _windowsCamera ?? (_windowsCamera = new RelayCommand(() =>
+                {
+                    FrameSource = "ViewIpCamera/ViewAddNewIpCamera.xaml";
+                }));
+            }
+        }
     
     }
 }
