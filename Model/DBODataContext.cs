@@ -12,6 +12,7 @@ namespace Model
     {
         public DbSet<Good> Goods { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<IpCamera> IpCameras { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

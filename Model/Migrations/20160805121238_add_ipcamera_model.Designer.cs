@@ -8,9 +8,10 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DBODataContext))]
-    partial class DBODataContextModelSnapshot : ModelSnapshot
+    [Migration("20160805121238_add_ipcamera_model")]
+    partial class add_ipcamera_model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
@@ -55,11 +56,11 @@ namespace Model.Migrations
                         .IsRequired()
                         .HasAnnotation("MaxLength", 32);
 
-                    b.Property<int?>("ParentId");
+                    b.Property<int?>("ParentID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("ParentID");
 
                     b.ToTable("Groups");
                 });
@@ -97,9 +98,9 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.DataModels.Group", b =>
                 {
-                    b.HasOne("Model.DataModels.Group")
-                        .WithMany("ChildrenGroups")
-                        .HasForeignKey("ParentId");
+                    b.HasOne("Model.DataModels.Group", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentID");
                 });
         }
     }

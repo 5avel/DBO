@@ -64,7 +64,7 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <Button Content="ККМ" Command="{Binding WindowsKKM}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"/>
+            <Button Content="ККМ" Command="{Binding WindowsCamera}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"/>
             <Button Command="{Binding WindowsService}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="5" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="img/service.png"></Image>
