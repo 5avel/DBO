@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:DBO.View"
-      xmlns:localHelper="clr-namespace:DBO.View.Helpers"
       xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
@@ -48,8 +47,7 @@
 
         <TreeView ItemsSource="{Binding GoodsGroupeCollection}" 
                   Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch" 
-                  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  localHelper:TreeViewHelper.SelectedItem="{Binding SelectedGroup}" >
+                  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildrenGroups}">
                         <TextBlock Text="{Binding Name}"/>
