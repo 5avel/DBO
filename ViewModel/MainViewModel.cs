@@ -7,7 +7,7 @@ namespace DBO.ViewModel
     {
         public MainViewModel()
         {
-            FrameSource = "ViewGoodsPage.xaml"; // вид при старте
+            FrameSource = "Reference.xaml"; // вид при старте
         }
         private string frameSource;
 
@@ -34,27 +34,27 @@ namespace DBO.ViewModel
             }
         }
 
-        private ICommand _windowsGoods;
-        public ICommand WindowsGoods
+        private ICommand _windowsReference;
+        public ICommand WindowsReference
         {
             get
             {
-                return _windowsGoods ?? (_windowsGoods = new RelayCommand(() =>
+                return _windowsReference ?? (_windowsReference = new RelayCommand(() =>
                 {
-                    FrameSource = "ViewGoodsPage.xaml";
+                    FrameSource = "Reference.xaml";
                 }));
             }
         }
 
-        private ICommand _windowsCamera;
+        private ICommand _windowsIpCameras;
 
-        public ICommand WindowsCamera
+        public ICommand WindowsIpCameras
         {
             get
             {
-                return _windowsCamera ?? (_windowsCamera = new RelayCommand(() =>
+                return _windowsIpCameras ?? (_windowsIpCameras = new RelayCommand(() =>
                 {
-                    FrameSource = "ViewIpCamera/ViewAddNewIpCamera.xaml";
+                    FrameSource = "IpCameras.xaml";
                 }));
             }
         }

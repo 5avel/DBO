@@ -72,6 +72,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\TreeViewHelper.cs" />
+    <Compile Include="Reference - Копировать.xaml.cs">
+      <DependentUpon>Reference - Копировать.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IpCameras.xaml.cs">
+      <DependentUpon>IpCameras.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml.cs">
       <DependentUpon>ViewAddNewItemIpCamera.xaml</DependentUpon>
     </Compile>
@@ -81,8 +87,8 @@
     <Compile Include="ViewOperationsPage.xaml.cs">
       <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewGoodsPage.xaml.cs">
-      <DependentUpon>ViewGoodsPage.xaml</DependentUpon>
+    <Compile Include="ViewsReference\ViewGroupsGoodsPage.xaml.cs">
+      <DependentUpon>ViewGroupsGoodsPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +102,14 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Reference - Копировать.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="IpCameras.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,7 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewGoodsPage.xaml">
+    <Page Include="ViewsReference\ViewGroupsGoodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,7 +159,6 @@
     <Resource Include="img\Delphin.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewsGoods\" />
     <Folder Include="ViewsShared\" />
   </ItemGroup>
   <ItemGroup>

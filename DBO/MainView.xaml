@@ -9,70 +9,34 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
+        TextOptions.TextRenderingMode="Auto"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        FontFamily="{StaticResource MaterialDesignFont}"
         xmlns:vm ="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel" 
-        ShowIconOnTitleBar="True" Icon="img\Delphin.ico">
+        ShowIconOnTitleBar="True" Icon="img\Delphin.ico" HorizontalAlignment="Center">
 
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
-    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="556*"/>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <Menu HorizontalAlignment="Stretch" Height="50" VerticalAlignment="Top"  Grid.RowSpan="1">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" HorizontalAlignment="Left" Width="140" Height="20"/>
-            </MenuItem>
-            <MenuItem Header="Окна">
-                <MenuItem Header="Продажа" HorizontalAlignment="Left" Width="140" Height="20" Command="{Binding WindowsSales}" />
-                <MenuItem Header="Продажа2" HorizontalAlignment="Left" Width="140" Height="20" Command="{Binding WindowsSales2}" />
-                <MenuItem Header="Товары" HorizontalAlignment="Left" Width="140" Height="20" Command="{Binding WindowsGoods}"/>
-                <MenuItem Header="Отчеты" HorizontalAlignment="Left" Width="140" Height="20"/>
-                <MenuItem Header="Настройки" HorizontalAlignment="Left" Width="140" Height="20"/>
-            </MenuItem>
-            <MenuItem Header="ККМ" Width="200">
-                <MenuItem Header="Х-Отчет" HorizontalAlignment="Left" Width="140" Height="20" Command="{Binding PrintXReportCommand}" />
-                <MenuItem Header="Z-Отчет" HorizontalAlignment="Left" Width="140" Height="20" Command="{Binding PrintZReportCommand}"/>
-                <MenuItem Header="Нулевой чек" HorizontalAlignment="Left" Width="200" Height="20" Command="{Binding EmptyReceiptCommand}" />
-                <MenuItem Header="Копия последнего чека" HorizontalAlignment="Left" Width="250" Height="20" Command="{Binding CopyLastReceiptCommand}" />
-                <MenuItem Header="Выдача/Внесание" HorizontalAlignment="Left" Width="250" Height="20" Command="{Binding InOutCommand}" />
-            </MenuItem>
-        </Menu>
-        <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
-        <Grid Grid.Row="1" Margin="0,0,0,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Content="Продажи" Command="{Binding WindowsSales}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch"/>
-            <Button Content="Товары" Command="{Binding WindowsGoods}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"/>
-            <Button Content="Справочник" Command="{Binding WindowsDirectory}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Stretch"/>
-            <Button Command="{Binding WindowsReports}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="3" VerticalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="img/reports.png"></Image>
-                    <TextBlock TextAlignment="Center">
-                            <Run FontSize="15">Отчеты</Run>
-                    </TextBlock>
-                </StackPanel>
-            </Button>
-            <Button Content="ККМ" Command="{Binding WindowsCamera}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"/>
-            <Button Command="{Binding WindowsService}" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="5" VerticalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="img/service.png"></Image>
-                    <TextBlock TextAlignment="Center">
-                            <Run FontSize="15">Сервис</Run>
-                    </TextBlock>
-                </StackPanel>
-            </Button>
-        </Grid>
-    </Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands ShowSeparators="True" ShowLastSeparator="False" >
+            <Button Content="Справочники" Command="{Binding WindowsReference}"  />
+            <Button Content="Документы" Command="{Binding WindowsGoods}"  />
+            <Button Content="Отчеты"  />
+            <Button Content="Сервис"  />
+            <Button Content="Обмен данными"  />
+            <Button Content="Камеры"  Command="{Binding WindowsIpCameras}  />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+    <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+
 </Controls:MetroWindow>

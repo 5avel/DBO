@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GoodsViewModel.cs" />
+    <Compile Include="ReferenceViewModel.cs" />
+    <Compile Include="VMReference\GoodsViewModel.cs" />
     <Compile Include="IpCameraViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MVVMLib\ObservableObject.cs" />
@@ -50,9 +51,7 @@
     <Compile Include="MVVMLib\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VMGoods\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}</Project>

@@ -1,0 +1,29 @@
+﻿<Page x:Class="DBO.View.Reference"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:local="clr-namespace:DBO.View"
+      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
+      mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:ReferenceViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal"  >
+            <Button Content="Группы/Товары" Command="{Binding GroupsGoodsPage}" Margin="5" />
+            <Button Content="Единицы измерения" Margin="5"  />
+            <Button Content="Магазины" Margin="5"  />
+            <Button Content="Склады" Margin="5"  />
+        </StackPanel>
+
+        <Frame Source="{Binding ReferenceFrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+    </Grid>
+
+</Page>
