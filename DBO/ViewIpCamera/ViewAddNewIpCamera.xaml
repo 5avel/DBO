@@ -43,44 +43,14 @@
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
 
-        <ListView SelectedItem="{Binding SelectedGroup}"  ItemsSource="{Binding IpCameraCollection}"  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" >
-
-            <ListView.View>
-                <GridView >
-                    <GridViewColumn Width="200" Header="Торговая точка">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
+        <ListView ItemsSource="{Binding IpCameraCollection}"  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" >
 
         </ListView>
-
-        <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"  />
-                    <GridViewColumn Width="200"  Header="Название">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Width="180" Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="60" Header="Цена">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Width="55" Text="{Binding Price}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="40" Header="Код Группы" DisplayMemberBinding="{Binding GoodsGroupeId}"/>
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Column="1" Grid.Row="1">
+            <MediaElement Source="rtsp:///admin:1234@192.168.88.172:554/ipcam.sdp" Height="480" Width="640" Name="myMediaElement" LoadedBehavior="Play"/>
         </ListView>
+        
+     
 
         <DockPanel Grid.Column="0" Margin="10, 0, 5, 0" >
             <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding WindowsCamera_newWindow}"

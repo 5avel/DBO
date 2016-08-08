@@ -40,19 +40,18 @@ namespace DBO.ViewModel
             IpCameraCollection = new ObservableCollection<IpCamera>(new IpCameraProvider().GetAllIpCamera());
         }
 
-        ////Исправить
-        private ICommand _windowsCamera_newWindow;
 
-        public ICommand WindowsCamera_newWindow
+        private ICommand _getSelectedCamera;
+
+        public ICommand GetSelectedCamera;
         {
             get
             {
-                return _windowsCamera_newWindow ?? (_windowsCamera_newWindow = new RelayCommand(() =>
+                return _getSelectedCamera ?? (_getSelectedCamera = new RelayCommand(() =>
                 {
                     Window w1 = new Window();
                 }));
             }
         }
-        ////Исправить
     }
 }
