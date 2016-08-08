@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Model.DataModels;
 using Model;
 using Model.DAL;
+using System.Windows;
 
 namespace DBO.ViewModel
 {
@@ -74,6 +75,7 @@ namespace DBO.ViewModel
             set
             {
                 selectedGroup = value;
+                MessageBox.Show(value.Name);
                 //cm.SelectedGroup = value;
                 //SetGoodsSelectedGrop(); // Выводит товары выбранной группы
                 if (value == null) IsSelectedGroupe = false;
@@ -87,7 +89,20 @@ namespace DBO.ViewModel
         public GoodsViewModel() // КОНСТРУКТОР
         {
             GoodsGroupeCollection = new ObservableCollection<Group>(new GroupsProvider().GetAllGoups());
-            
+        }
+
+
+        private ICommand groupsSelectedItemChanged;
+        public ICommand GroupsSelectedItemChanged
+        {
+            get
+            {
+                return groupsSelectedItemChanged ?? (groupsSelectedItemChanged = new RelayCommand(() =>
+                {
+                    MessageBox.Show("ttt");
+
+                }));
+            }
         }
 
     }

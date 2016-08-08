@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:DBO.View"
+      xmlns:localHelper="clr-namespace:DBO.View.Helpers"
       xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
@@ -44,24 +46,18 @@
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
 
-        <ListView SelectedItem="{Binding SelectedGroup}"  ItemsSource="{Binding GoodsGroupeCollection}"  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" >
+        <TreeView ItemsSource="{Binding GoodsGroupeCollection}" 
+                  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  localHelper:TreeViewHelper.SelectedItem="{Binding SelectedGroup}" >
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildrenGroups}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+        </TreeView>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"/>
-                    <GridViewColumn Width="200" Header="Название">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Width="180" Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-
-        </ListView>
-
-        <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
+            <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"  />

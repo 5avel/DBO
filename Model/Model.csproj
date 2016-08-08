@@ -167,6 +167,10 @@
     <Compile Include="Migrations\20160804134750_MyFirstMigration.designer.cs">
       <DependentUpon>20160804134750_MyFirstMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20160805074558_Group Updated.cs" />
+    <Compile Include="Migrations\20160805074558_Group Updated.designer.cs">
+      <DependentUpon>20160805074558_Group Updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DBODataContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
