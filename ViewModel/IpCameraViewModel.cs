@@ -43,15 +43,15 @@ namespace DBO.ViewModel
 
         private ICommand _getSelectedCamera;
 
-        public ICommand GetSelectedCamera;
-        {
-            get
-            {
-                return _getSelectedCamera ?? (_getSelectedCamera = new RelayCommand(() =>
-                {
-                    Window w1 = new Window();
-                }));
-            }
-        }
+        //public ICommand GetSelectedCamera;
+        //{
+        //    get
+        //    {
+        //        return _getSelectedCamera ?? (_getSelectedCamera = new RelayCommand(() =>
+        //        {
+        //            Window w1 = new Window();
+        //        }));
+        //    }
+        //}
     }
 }
