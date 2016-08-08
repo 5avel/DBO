@@ -15,6 +15,6 @@ namespace Model.DAL
             {
                 return db.IpCameras.ToList();
             }
-        }       
+        }
     }
 }

@@ -42,14 +42,11 @@ namespace DBO.ViewModel
             set
             {
                 selectedIpCamera = value;
-                IPCameraSource = "rtsp:///admin:1234@192.168.88.172:554/ipcam.sdp";
+                string string_source = "rtsp:///" + selectedIpCamera.Cam_Login + ":" + selectedIpCamera.Cam_Password + "@" + selectedIpCamera.Cam_IpAddress + "/" + selectedIpCamera.Name + ".sdp";
+                IPCameraSource = string_source;
                 OnPropertyChanged("SelectedIpCamera");
             }
         }
-
-
-
-        //  
 
 
         #endregion Public Properties
