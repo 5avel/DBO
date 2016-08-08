@@ -8,8 +8,8 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DBODataContext))]
-    [Migration("20160805074558_Group Updated")]
-    partial class GroupUpdated
+    [Migration("20160808094552_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,30 @@ namespace Model.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("Model.DataModels.IpCamera", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Cam_IpAddress")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 255);
+
+                    b.Property<string>("Cam_Login")
+                        .HasAnnotation("MaxLength", 32);
+
+                    b.Property<string>("Cam_Password")
+                        .HasAnnotation("MaxLength", 255);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 32);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("IpCameras");
                 });
 
             modelBuilder.Entity("Model.DataModels.Good", b =>

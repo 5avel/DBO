@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\TreeViewHelper.cs" />
     <Compile Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml.cs">
       <DependentUpon>ViewAddNewItemIpCamera.xaml</DependentUpon>
     </Compile>
