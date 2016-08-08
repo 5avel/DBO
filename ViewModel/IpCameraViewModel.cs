@@ -22,17 +22,33 @@ namespace DBO.ViewModel
             }
         }
 
-        private bool isSelectedIpCamera;
+        private string ipCamSource;
 
-        public bool IsSelectedIpCamera
+        public string IPCameraSource
         {
-            get { return isSelectedIpCamera; }
+            get { return ipCamSource; }
             set
             {
-                isSelectedIpCamera = value;
-                OnPropertyChanged("IsSelectedIpCamera");
+                ipCamSource = value;
+                OnPropertyChanged("IPCameraSource");
             }
         }
+
+        private IpCamera selectedIpCamera;
+
+        public IpCamera SelectedIpCamera
+        {
+            get { return selectedIpCamera; }
+            set
+            {
+                selectedIpCamera = value;
+                string string_source = "rtsp:///" + selectedIpCamera.Cam_Login + ":" + selectedIpCamera.Cam_Password + "@" + selectedIpCamera.Cam_IpAddress + "/" + selectedIpCamera.Name + ".sdp";
+                IPCameraSource = string_source;
+                OnPropertyChanged("SelectedIpCamera");
+            }
+        }
+
+
         #endregion Public Properties
 
         public IpCameraViewModel()
@@ -40,18 +56,7 @@ namespace DBO.ViewModel
             IpCameraCollection = new ObservableCollection<IpCamera>(new IpCameraProvider().GetAllIpCamera());
         }
 
-
-        private ICommand _getSelectedCamera;
-
-        //public ICommand GetSelectedCamera;
-        //{
-        //    get
-        //    {
-        //        return _getSelectedCamera ?? (_getSelectedCamera = new RelayCommand(() =>
-        //        {
-        //            Window w1 = new Window();
-        //        }));
-        //    }
-        //}
+        
+      
     }
 }

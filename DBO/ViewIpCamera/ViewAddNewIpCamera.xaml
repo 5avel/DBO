@@ -43,16 +43,16 @@
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
 
-        <ListView ItemsSource="{Binding IpCameraCollection}"  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" >
+        <ListView ItemsSource="{Binding IpCameraCollection}" SelectedItem="{Binding SelectedIpCamera}"  Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" >
 
         </ListView>
-        <ListView Grid.Column="1" Grid.Row="1">
-            <MediaElement Source="rtsp:///admin:1234@192.168.88.172:554/ipcam.sdp" Height="480" Width="640" Name="myMediaElement" LoadedBehavior="Play"/>
-        </ListView>
-        
-     
 
-        <DockPanel Grid.Column="0" Margin="10, 0, 5, 0" >
+
+        <MediaElement Source="{Binding IPCameraSource}"  Name="myMediaElement" LoadedBehavior="Play" Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+
+
+            <DockPanel Grid.Column="0" Margin="10, 0, 5, 0" >
             <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding WindowsCamera_newWindow}"
                     Focusable="False" Margin="5,0,5,0" Style="{StaticResource ButtonPressed}">
                 <Image Source="/img/add.bmp" Style="{StaticResource ImageEnabled}" />
@@ -63,21 +63,6 @@
             </Button>
             <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding DelGroupCommand}"
                     Focusable="False" Margin="5,0,5,0" Style="{StaticResource ButtonPressed}" IsEnabled="{Binding IsSelectedGroupe}">
-                <Image Source="/img/remove.bmp" Style="{StaticResource ImageEnabled}" />
-            </Button>
-        </DockPanel>
-
-        <DockPanel Grid.Column="1" Margin="10, 0, 5, 0" >
-            <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding AddGoodCommand}"
-                    Focusable="False" Margin="5,0,5,0" Style="{StaticResource ButtonPressed}" IsEnabled="{Binding IsSelectedGroupe}">
-                <Image Source="/img/add.bmp" Style="{StaticResource ImageEnabled}" />
-            </Button>
-            <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding EditGoodCommand}"
-                    Focusable="False" Margin="5,0,5,0" Style="{StaticResource ButtonPressed}" IsEnabled="{Binding IsSelectedGood}" >
-                <Image Source="/img/edit.bmp" Style="{StaticResource ImageEnabled}" />
-            </Button>
-            <Button Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding DelGoodCommand}"
-                    Focusable="False" Margin="5,0,5,0" Style="{StaticResource ButtonPressed}" IsEnabled="{Binding IsSelectedGood}">
                 <Image Source="/img/remove.bmp" Style="{StaticResource ImageEnabled}" />
             </Button>
         </DockPanel>
