@@ -34,7 +34,7 @@
             <Button Content="Отчеты"  />
             <Button Content="Сервис"  />
             <Button Content="Обмен данными"  />
-            <Button Content="Камеры"  Command="{Binding WindowsIpCameras}  />
+            <Button Content="Камеры"  Command="{Binding WindowsIpCameras}"  />
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>

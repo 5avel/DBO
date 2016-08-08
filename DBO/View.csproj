@@ -72,8 +72,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\TreeViewHelper.cs" />
-    <Compile Include="Reference - Копировать.xaml.cs">
-      <DependentUpon>Reference - Копировать.xaml</DependentUpon>
+    <Compile Include="Reference.xaml.cs">
+      <DependentUpon>Reference.xaml</DependentUpon>
     </Compile>
     <Compile Include="IpCameras.xaml.cs">
       <DependentUpon>IpCameras.xaml</DependentUpon>
@@ -102,7 +102,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Reference - Копировать.xaml">
+    <Page Include="Reference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

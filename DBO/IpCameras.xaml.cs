@@ -18,9 +18,9 @@ namespace DBO.View
     /// <summary>
     /// Логика взаимодействия для ViewGoodsPage.xaml
     /// </summary>
-    public partial class Reference : Page
+    public partial class IpCameras : Page
     {
-        public Reference()
+        public IpCameras()
         {
             InitializeComponent();
         }
