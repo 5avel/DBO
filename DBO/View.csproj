@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,12 +79,6 @@
     <Compile Include="IpCameras.xaml.cs">
       <DependentUpon>IpCameras.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml.cs">
-      <DependentUpon>ViewAddNewItemIpCamera.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewIpCamera\ViewAddNewIpCamera.xaml.cs">
-      <DependentUpon>ViewAddNewIpCamera.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewOperationsPage.xaml.cs">
       <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
     </Compile>
@@ -107,14 +102,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IpCameras.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewIpCamera\ViewAddNewItemIpCamera.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewIpCamera\ViewAddNewIpCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "DBO\View.csproj", "{8C6068BA-144B-434F-BD0E-17B652ADB312}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399} = {A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{E3D2568D-A59B-4FE1-AE67-A9AB3F9BC2FB}"
 EndProject
