@@ -17,12 +17,41 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Name="g1"  >
+
+
+
+    <materialDesign:DialogHost Identifier="GroupsDialog">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}" >
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                  DockPanel.Dock="Top"
+                                  HorizontalAlignment="Right" Margin="16"
+                                  IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="0" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="domain:DemoItem">
+                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            
+
+
+
+
+            <Grid Name="g1"  >
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
@@ -31,16 +60,17 @@
             <ColumnDefinition Width="280" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+                
 
+<!--Кнопки управления группами товаров-->
         <materialDesign:PopupBox  Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
         PlacementMode="LeftAndAlignMiddles" Width="30" Height="30" UnfurlOrientation="Horizontal" ToolTip="Manage items"
         Margin="0 0 10 5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
-                <Button ToolTip="Добавить новую группу." Width="30" Height="30" Command="{Binding AddCommand}">
-                    <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Stretch="Uniform" Width="15" Height="15"
-                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                </Button>
-                <Button ToolTip="Remove selected item" Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
+                        <ToggleButton  x:Name="MenuToggleButton" ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}" IsChecked="False">
+                            <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
+                        </ToggleButton>
+                <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
                     <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                     Stretch="Uniform"  Width="15" Height="15"
                     Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
@@ -60,22 +90,23 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
-
+<!--Кнопки управления товароми-->
         <materialDesign:PopupBox  Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
         PlacementMode="RightAndAlignMiddles" Width="30" Height="30" UnfurlOrientation="Horizontal" ToolTip="Manage items"
         Margin="15 0 0 5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
-                <Button ToolTip="Remove selected item" Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
+                <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
                     <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                     Stretch="Uniform"  Width="15" Height="15"
                     Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                 </Button>
-                <Button ToolTip="Добавить новую группу." Width="30" Height="30" Command="{Binding AddCommand}">
+                <Button ToolTip="Добавить новый элемент." Width="30" Height="30" Command="{Binding AddCommand}">
                     <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Stretch="Uniform" Width="15" Height="15"
                     Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                 </Button>
             </StackPanel>
         </materialDesign:PopupBox>
+               
 
         <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
             <ListView.View>
@@ -99,7 +130,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
-
+                
+                
+                
+                
+                
     </Grid>
+
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </Page>
