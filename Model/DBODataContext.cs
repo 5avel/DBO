@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.DataModels;
+using System.IO;
 
 namespace Model
 {
@@ -16,7 +17,8 @@ namespace Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source = .\DBO.db");
+           
+            optionsBuilder.UseSqlite(@"Data Source = .\..\..\..\Data\DBO.db");
         }
     }
 }

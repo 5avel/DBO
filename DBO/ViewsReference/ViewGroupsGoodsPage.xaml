@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:local="clr-namespace:DBO.View"
       xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
       mc:Ignorable="d" 
@@ -22,121 +23,119 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <x:Array x:Key="WindowCommandsOverlayBehaviorArray" Type="Controls:WindowCommandsOverlayBehavior">
+                <Controls:WindowCommandsOverlayBehavior>Always</Controls:WindowCommandsOverlayBehavior>
+                <Controls:WindowCommandsOverlayBehavior>Flyouts</Controls:WindowCommandsOverlayBehavior>
+                <Controls:WindowCommandsOverlayBehavior>HiddenTitleBar</Controls:WindowCommandsOverlayBehavior>
+                <Controls:WindowCommandsOverlayBehavior>Never</Controls:WindowCommandsOverlayBehavior>
+            </x:Array>
         </ResourceDictionary>
     </Page.Resources>
 
 
 
 
-    <materialDesign:DialogHost Identifier="GroupsDialog">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}" >
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="212">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                  DockPanel.Dock="Top"
-                                  HorizontalAlignment="Right" Margin="16"
-                                  IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="0" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="domain:DemoItem">
-                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-
-                    </ListBox>
-                </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-            
+        <Grid Name="g1"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
 
-
-
-            <Grid Name="g1"  >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-                
-
-<!--Кнопки управления группами товаров-->
-        <materialDesign:PopupBox  Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+            <!--Кнопки управления группами товаров-->
+            <materialDesign:PopupBox  Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
         PlacementMode="LeftAndAlignMiddles" Width="30" Height="30" UnfurlOrientation="Horizontal" ToolTip="Manage items"
         Margin="0 0 10 5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal">
-                        <ToggleButton  x:Name="MenuToggleButton" ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}" IsChecked="False">
-                            <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
-                        </ToggleButton>
-                <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
-                    <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}"
+                                   IsChecked="{Binding ElementName=GroupFlyout, Path=IsOpen}">
+                        <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
+                    </ToggleButton>
+                    <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
+                        <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                     Stretch="Uniform"  Width="15" Height="15"
                     Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                </Button>
-            </StackPanel>
-        </materialDesign:PopupBox>
+                    </Button>
+                </StackPanel>
+            </materialDesign:PopupBox>
 
-        <TreeView ItemsSource="{Binding GoodsGroupeCollection}" 
+            <TreeView ItemsSource="{Binding GoodsGroupeCollection}" 
                   Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildrenGroups}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding ChildrenGroups}">
                         <TextBlock Text="{Binding Name}"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
-        </TreeView>
+            </TreeView>
 
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
-<!--Кнопки управления товароми-->
-        <materialDesign:PopupBox  Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+            <!--Кнопки управления товароми-->
+            <materialDesign:PopupBox  Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
         PlacementMode="RightAndAlignMiddles" Width="30" Height="30" UnfurlOrientation="Horizontal" ToolTip="Manage items"
         Margin="15 0 0 5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal">
-                <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
-                    <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+                <StackPanel Orientation="Horizontal">
+                    <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
+                        <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                     Stretch="Uniform"  Width="15" Height="15"
                     Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                </Button>
-                <Button ToolTip="Добавить новый элемент." Width="30" Height="30" Command="{Binding AddCommand}">
-                    <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Stretch="Uniform" Width="15" Height="15"
-                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                </Button>
+                    </Button>
+                <ToggleButton ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}"
+                                   IsChecked="{Binding ElementName=GoodsFlyout, Path=IsOpen}">
+                    <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
+                </ToggleButton>
             </StackPanel>
-        </materialDesign:PopupBox>
-               
+            </materialDesign:PopupBox>
 
-        <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"  />
-                    <GridViewColumn Width="200"  Header="Название">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Width="180" Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="60" Header="Цена">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Width="55" Text="{Binding Price}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="40" Header="Код Группы" DisplayMemberBinding="{Binding GoodsGroupeId}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-                
-                
-                
-                
-                
+
+            <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"  />
+                        <GridViewColumn Width="200"  Header="Название">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Width="180" Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="60" Header="Цена">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Width="55" Text="{Binding Price}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="40" Header="Код Группы" DisplayMemberBinding="{Binding GoodsGroupeId}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        <Controls:Flyout x:Name="GroupFlyout" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Theme="Adapt" IsOpen="False"
+                         Header="Einstellungen" Position="Left" Width="500" AnimateOpacity="True">
+            <TextBlock  Width="100" Height="100" Text="Notifications" Foreground="White"/>
+
+        </Controls:Flyout>
+
+
+        <Controls:Flyout x:Name="GoodsFlyout" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Theme="Adapt"  IsOpen="False" Header="Einstellungen" Position="Right" Width="500" AnimateOpacity="True">
+                    <TextBlock  Width="100" Height="100" Text="Notifications" Foreground="White"/>
+
+                </Controls:Flyout>
+
+
+
+
+
+
     </Grid>
 
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
+
+
+
 </Page>
