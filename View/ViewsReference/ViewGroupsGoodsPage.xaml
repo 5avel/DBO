@@ -7,7 +7,12 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:local="clr-namespace:DBO.View"
-      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel">
+      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
+      xmlns:dm="clr-namespace:DBO.DataModel;assembly=DataModel"
+      xmlns:helper="clr-namespace:DBO.View.Helpers"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="700"
+      Title="ViewGoodsPage">
     <Page.DataContext>
         <vm:GoodsViewModel/>
     </Page.DataContext>
@@ -58,21 +63,20 @@
                 </StackPanel>
             </materialDesign:PopupBox>
 
-        <TreeView ItemsSource="{Binding GoodsGroupeCollection}"
+            <TreeView x:Name="myTreeView" ItemsSource="{Binding GoodsGroupeCollection}"
                   Grid.Column="0" Grid.Row="1" Margin="5"  HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildrenGroups}">
-                    <TextBlock Text="{Binding Name}"/>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction Command="{Binding SomeCommand}"
+                                   CommandParameter="{Binding ElementName=myTreeView,Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate  ItemsSource="{Binding ChildrenGroups}">
+                    <TextBlock Text="{Binding Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction
-        Command="{Binding SetSelectedItemCommand}"
-        CommandParameter="{Binding SelectedItem, ElementName=treeView}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TreeView>
 
             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>

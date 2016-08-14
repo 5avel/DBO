@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.DataModels
+namespace DBO.DataModel
 {
     public class Group :BaseDataModel
     {

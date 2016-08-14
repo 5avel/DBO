@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3D2568D-A59B-4FE1-AE67-A9AB3F9BC2FB}</ProjectGuid>
+    <ProjectGuid>{9F448C53-19C0-43D4-BC8E-CC761A75339A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBO.ViewModel</RootNamespace>
-    <AssemblyName>DBO.ViewModel</AssemblyName>
+    <RootNamespace>DBO.DataModel</RootNamespace>
+    <AssemblyName>DataModel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,27 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReferenceViewModel.cs" />
-    <Compile Include="VMReference\GoodsViewModel.cs" />
-    <Compile Include="IpCameraViewModel.cs" />
-    <Compile Include="MainViewModel.cs" />
-    <Compile Include="MVVMLib\ObservableObject.cs" />
-    <Compile Include="MVVMLib\RelayCommand.cs" />
-    <Compile Include="MVVMLib\ViewModelBase.cs" />
+    <Compile Include="BaseDataModel.cs" />
+    <Compile Include="Good.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="IpCamera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{9f448c53-19c0-43d4-bc8e-cc761a75339a}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}</Project>
-      <Name>Model</Name>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

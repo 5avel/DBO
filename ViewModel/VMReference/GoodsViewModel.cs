@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using DBO.ViewModel.MVVMLib;
 using System.Collections.ObjectModel;
-using Model.DataModels;
+using DBO.DataModel;
 using Model;
 using Model.DAL;
 using System.Windows;
@@ -19,6 +19,19 @@ namespace DBO.ViewModel
             {
                 goodsCollection = value;
                 OnPropertyChanged("GoodsCollection");
+            }
+        }
+
+
+        private Group selectedGroup; // Выбранная группа
+        public Group SelectedGroup
+        {
+            get { return selectedGroup; }
+            set
+            {
+                selectedGroup = value;
+                IsSelectedGroupe = selectedGroup != null;
+                OnPropertyChanged("SelectedGroup");
             }
         }
 
@@ -54,6 +67,7 @@ namespace DBO.ViewModel
             set
             {
                 goodsGroupeCollection = value;
+
             }
         }
 
@@ -61,28 +75,13 @@ namespace DBO.ViewModel
         public bool IsSelectedGroupe
         {
             get { return isSelectedGroupe; }
-            set
-            {
-                isSelectedGroupe = value;
+            set { isSelectedGroupe = value;
                 OnPropertyChanged("IsSelectedGroupe");
+
             }
         }
 
-        private Group selectedGroup; // Выбранная группа
-        public Group SelectedGroup
-        {
-            get { return selectedGroup; }
-            set
-            {
-                selectedGroup = value;
-                MessageBox.Show(value.Name);
-                //cm.SelectedGroup = value;
-                //SetGoodsSelectedGrop(); // Выводит товары выбранной группы
-                if (value == null) IsSelectedGroupe = false;
-                else IsSelectedGroupe = true;
-                OnPropertyChanged("SelectedGroup");
-            }
-        }
+
 
         #endregion Public Properties
 
@@ -92,18 +91,16 @@ namespace DBO.ViewModel
         }
 
 
-        private ICommand groupsSelectedItemChanged;
-        public ICommand GroupsSelectedItemChanged
+        private RelayCommand<Group> someCommand;
+        public ICommand SomeCommand
         {
             get
             {
-                return groupsSelectedItemChanged ?? (groupsSelectedItemChanged = new RelayCommand(() =>
+                return someCommand ?? (someCommand = new RelayCommand<Group>((param)=> 
                 {
-                    MessageBox.Show("ttt");
-
+                    SelectedGroup = param;
                 }));
             }
         }
-
     }
 }

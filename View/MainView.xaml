@@ -33,7 +33,7 @@
             <Button Content="Документы" Command="{Binding WindowsGoods}"  />
             <Button Content="Отчеты"  />
             <Button Content="Сервис"  />
-            <Button Content="Обмен данными"  />
+            <Button Content="Обмен данными"   />
             <Button Content="Камеры"  Command="{Binding WindowsIpCameras}"  />
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>

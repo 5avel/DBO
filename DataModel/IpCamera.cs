@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.DataModels
+namespace DBO.DataModel
 {
     public class IpCamera : BaseDataModel
     {
