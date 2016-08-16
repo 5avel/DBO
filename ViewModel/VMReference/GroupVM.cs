@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DBO.DataModel;
+using Model.DAL;
 
 namespace DBO.ViewModel.VMReference
 {
@@ -32,7 +33,18 @@ namespace DBO.ViewModel.VMReference
             {
                 isExpanded = value;
                 OnPropertyChanged(() => IsExpanded);
+                new GroupsProvider().UpdateGoup(this.ToGroup());
             }
+        }
+
+        private Group ToGroup()
+        {
+            // TODO пропала ветка в первой группе, исправит и проверить.
+            Group g = new Group();
+            g.ID = ID;
+            g.Name = Name;
+            g.IsExpanded = IsExpanded;
+            return g;
         }
 
         public virtual IList<GoodVM> Goods { get; set; }

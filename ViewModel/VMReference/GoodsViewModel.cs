@@ -14,8 +14,6 @@ using DBO.ViewModel.VMReference;
 
 namespace DBO.ViewModel
 {
-
-   
     public class GoodsGroupsViewModel : ViewModelBase
     {
         #region Properties
