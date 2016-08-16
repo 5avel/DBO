@@ -33,6 +33,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +51,8 @@
     <Compile Include="MVVMLib\RelayCommand.cs" />
     <Compile Include="MVVMLib\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VMReference\GoodVM.cs" />
+    <Compile Include="VMReference\GroupVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

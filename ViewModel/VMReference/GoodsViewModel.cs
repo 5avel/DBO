@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using DBO.ViewModel.VMReference;
 
 namespace DBO.ViewModel
 {
@@ -20,8 +21,8 @@ namespace DBO.ViewModel
         #region Properties
         #region Groups Properties
 
-        private Group selectedGroup; // Выбранная группа
-        public Group SelectedGroup
+        private GroupVM selectedGroup; // Выбранная группа
+        public GroupVM SelectedGroup
         {
             get { return selectedGroup; }
             set
@@ -33,8 +34,8 @@ namespace DBO.ViewModel
         }
 
 
-        private ObservableCollection<Group> goodsGroupeCollection; // Коллекция Групп товаров
-        public ObservableCollection<Group> GoodsGroupeCollection
+        private ObservableCollection<GroupVM> goodsGroupeCollection; // Коллекция Групп товаров
+        public ObservableCollection<GroupVM> GoodsGroupeCollection
         {
             get { return goodsGroupeCollection; }
             set
@@ -176,9 +177,15 @@ namespace DBO.ViewModel
 
         public GoodsGroupsViewModel() // КОНСТРУКТОР
         {
-            GoodsGroupeCollection = new ObservableCollection<Group>(new GroupsProvider().GetAllGoups());
             Group.PropertyChanged += EntityViewModelPropertyChanged;
             SetGroupBtnState();
+            var groups = new GroupsProvider().GetAllGoups();
+            GoodsGroupeCollection = new ObservableCollection<GroupVM>();
+
+            foreach (Group item in groups)
+            {
+                GoodsGroupeCollection.Add(GroupVM.CopyTreeChildren(item));
+            }
         }
 
         private void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -190,12 +197,12 @@ namespace DBO.ViewModel
 
         #region Groups Commands
 
-        private RelayCommand<Group> selectionChangedGroupCommand;
+        private RelayCommand<GroupVM> selectionChangedGroupCommand;
         public ICommand SelectionChangedGroupCommand
         {
             get
             {
-                return selectionChangedGroupCommand ?? (selectionChangedGroupCommand = new RelayCommand<Group>((param)=> 
+                return selectionChangedGroupCommand ?? (selectionChangedGroupCommand = new RelayCommand<GroupVM>((param)=> 
                 {
                     SelectedGroup = param;
                     SetGroupBtnState();
