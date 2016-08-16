@@ -13,14 +13,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal"  >
-            <Button Content="Группы/Товары" Command="{Binding GroupsGoodsPage}" Margin="5" />
-            <Button Content="Единицы измерения" Margin="5"  />
-            <Button Content="Магазины" Margin="5"  />
-            <Button Content="Склады" Margin="5"  />
+            <Button Margin="5 0 0 0" Content="Группы/Товары" Command="{Binding GroupsGoodsPage}" />
+            <Button Margin="5 0 0 0" Content="Единицы измерения"   />
+            <Button Margin="5 0 0 0" Content="Магазины"  />
+            <Button Margin="5 0 0 0" Content="Склады"   />
         </StackPanel>
 
         <Frame Source="{Binding ReferenceFrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>

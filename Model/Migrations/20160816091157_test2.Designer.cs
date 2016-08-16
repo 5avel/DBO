@@ -8,9 +8,10 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DBODataContext))]
-    partial class DBODataContextModelSnapshot : ModelSnapshot
+    [Migration("20160816091157_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");

@@ -1,11 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 
 namespace DBO.DataModel
 {
-    public class Group :BaseDataModel
+    public class Group
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual int ID { set; get; }
+
         public int? ParentId { get; set; }
 
         [ForeignKey("ParentId")]
@@ -13,21 +20,43 @@ namespace DBO.DataModel
         
 
         [Required] // Обязательный
-        [StringLength(32, MinimumLength = 5, ErrorMessage = "Длина строки должна быть от 5 до 32 символов")]
-        [Display(Name = "Наименование")]
+        [StringLength(32, MinimumLength = 5)]
         public string Name { set; get; }
 
+        private bool isExpanded;
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set
+            {
+                isExpanded = value;
+                OnPropertyChanged(() => IsExpanded);
+            }
+        }
+
         public virtual IList<Good> Goods { get; set; }
+
+
+
         public Group()
         {
             ChildrenGroups = new List<Group>();
             Goods = new List<Good>();
-
         }
 
-        public override string ToString()
+        #region MVVM 
+        public static event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> changedProperty)
         {
-            return Name;
+            if (PropertyChanged != null)
+            {
+                string name = ((MemberExpression)changedProperty.Body).Member.Name;
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
         }
+        #endregion
     }
 }

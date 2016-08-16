@@ -69,8 +69,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\exTreeView.cs" />
-    <Compile Include="Helpers\TreeViewHelper.cs" />
     <Compile Include="Reference.xaml.cs">
       <DependentUpon>Reference.xaml</DependentUpon>
     </Compile>

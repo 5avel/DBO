@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DBO.DataModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model.DAL
 {
@@ -23,6 +20,15 @@ namespace Model.DAL
                     .ToList()
                     .Where(x => x.ParentId == null)
                     .ToList();
+            }
+        }
+
+        public void UpdateGoup(Group g)
+        {
+            using (var db = new DBODataContext())
+            {
+                db.Update(g);
+                db.SaveChanges();
             }
         }
     }

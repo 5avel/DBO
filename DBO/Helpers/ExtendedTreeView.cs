@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DBO.View
+namespace DBO.View.Helpers
 {
-    public class exTreeView : TreeView
+    public class ExtendedTreeView : TreeView
     {
-        public exTreeView() : base()
-    {
+        public ExtendedTreeView()
+       : base()
+        {
             this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(___ICH);
         }
 
@@ -28,7 +29,6 @@ namespace DBO.View
             get { return (object)GetValue(SelectedItem_Property); }
             set { SetValue(SelectedItem_Property, value); }
         }
-        public static readonly DependencyProperty SelectedItem_Property = DependencyProperty.Register("SelectedItem_", typeof(object), typeof(exTreeView), new UIPropertyMetadata(null));
-
+        public static readonly DependencyProperty SelectedItem_Property = DependencyProperty.Register("SelectedItem_", typeof(object), typeof(ExtendedTreeView), new UIPropertyMetadata(null));
     }
 }

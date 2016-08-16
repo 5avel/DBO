@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DBO.ViewModel.MVVMLib
 {
-    class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
