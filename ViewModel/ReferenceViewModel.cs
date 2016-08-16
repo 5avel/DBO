@@ -21,7 +21,7 @@ namespace DBO.ViewModel
             set
             {
                 referenceFrameSource = value;
-                OnPropertyChanged("ReferenceFrameSource");
+                OnPropertyChanged(() => ReferenceFrameSource);
             }
         }
 

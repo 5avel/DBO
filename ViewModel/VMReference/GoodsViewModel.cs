@@ -28,7 +28,7 @@ namespace DBO.ViewModel
             {
                 selectedGroup = value;
                 IsSelectedGroupe = selectedGroup != null;
-                OnPropertyChanged("SelectedGroup");
+                OnPropertyChanged(() => SelectedGroup);
             }
         }
 
@@ -39,7 +39,6 @@ namespace DBO.ViewModel
             get { return goodsGroupeCollection; }
             set
             {
-                
                 goodsGroupeCollection = value;
             }
         }
@@ -51,7 +50,7 @@ namespace DBO.ViewModel
             set
             {
                 isSelectedGroupe = value;
-                OnPropertyChanged("IsSelectedGroupe");
+                OnPropertyChanged(() => IsSelectedGroupe);
             }
         }
 
@@ -62,7 +61,7 @@ namespace DBO.ViewModel
             set
             {
                 isShowGroupFlayout = value;
-                OnPropertyChanged("IsShowGroupFlayout");
+                OnPropertyChanged(() => IsShowGroupFlayout);
                 if(!isShowGroupFlayout)
                 {
                     isAddingGroup = isEditingGroup = false;
@@ -78,7 +77,7 @@ namespace DBO.ViewModel
             set
             {
                 isAddingGroup = value;
-                OnPropertyChanged("IsAddingGroup");
+                OnPropertyChanged(() => IsAddingGroup);
                 IsShowGroupFlayout = isAddingGroup;
             }
         }
@@ -90,7 +89,7 @@ namespace DBO.ViewModel
             set
             {
                 isEditingGroup = value;
-                OnPropertyChanged("IsEditingGroup");
+                OnPropertyChanged(() => IsEditingGroup);
                 IsShowGroupFlayout = isEditingGroup;
             }
         }
@@ -103,7 +102,7 @@ namespace DBO.ViewModel
             set
             {
                 isBtnAddEnabled = value;
-                OnPropertyChanged("IsBtnAddEnabled");
+                OnPropertyChanged(() => IsBtnAddEnabled);
             }
         }
 
@@ -114,7 +113,7 @@ namespace DBO.ViewModel
             set
             {
                 isBtnEditEnabled = value;
-                OnPropertyChanged("IsBtnEditEnabled");
+                OnPropertyChanged(() => IsBtnEditEnabled);
             }
         }
 
@@ -125,7 +124,7 @@ namespace DBO.ViewModel
             set
             {
                 isBtnRemoveEnabled = value;
-                OnPropertyChanged("IsBtnRemoveEnabled");
+                OnPropertyChanged(() => IsBtnRemoveEnabled);
             }
         }
 
@@ -142,7 +141,7 @@ namespace DBO.ViewModel
             set
             {
                 goodsCollection = value;
-                OnPropertyChanged("GoodsCollection");
+                OnPropertyChanged(() => GoodsCollection);
             }
         }
 
@@ -153,7 +152,7 @@ namespace DBO.ViewModel
             set
             {
                 isSelectedGood = value;
-                OnPropertyChanged("IsSelectedGood");
+                OnPropertyChanged(() => IsSelectedGood);
             }
         }
 
