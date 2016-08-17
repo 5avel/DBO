@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DBO.DataModel;
+﻿using DBO.Model.DataModel;
+using Microsoft.EntityFrameworkCore;
+using Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Model.DAL
+namespace DBO.Model.DAL
 {
     public class GroupsProvider
     {

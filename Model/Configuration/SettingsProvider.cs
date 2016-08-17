@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace Model.Configuration
+namespace DBO.Model.Configuration
 {
     public struct Settings
     {

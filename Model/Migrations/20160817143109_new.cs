@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Model.Migrations
+namespace DBO.Model.Migrations
 {
-    public partial class first : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,6 +14,8 @@ namespace Model.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
+                    IsExpanded = table.Column<bool>(nullable: false),
+                    IsSelected = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     ParentId = table.Column<int>(nullable: true)
                 },

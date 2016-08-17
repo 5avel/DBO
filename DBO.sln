@@ -4,20 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{8C6068BA-144B-434F-BD0E-17B652ADB312}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399} = {A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{E3D2568D-A59B-4FE1-AE67-A9AB3F9BC2FB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3D3667DC-C48B-4430-BC61-935819AFA0B8}"
 	ProjectSection(SolutionItems) = preProject
 		Data\DBO.db = Data\DBO.db
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{9F448C53-19C0-43D4-BC8E-CC761A75339A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +32,6 @@ Global
 		{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F448C53-19C0-43D4-BC8E-CC761A75339A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F448C53-19C0-43D4-BC8E-CC761A75339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F448C53-19C0-43D4-BC8E-CC761A75339A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F448C53-19C0-43D4-BC8E-CC761A75339A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

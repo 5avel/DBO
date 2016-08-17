@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Model;
+using DBO.Model;
 
-namespace Model.Migrations
+namespace DBO.Model.Migrations
 {
     [DbContext(typeof(DBODataContext))]
     partial class DBODataContextModelSnapshot : ModelSnapshot
@@ -15,7 +15,7 @@ namespace Model.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
 
-            modelBuilder.Entity("DBO.DataModel.Good", b =>
+            modelBuilder.Entity("DBO.Model.DataModel.Good", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -46,12 +46,14 @@ namespace Model.Migrations
                     b.ToTable("Goods");
                 });
 
-            modelBuilder.Entity("DBO.DataModel.Group", b =>
+            modelBuilder.Entity("DBO.Model.DataModel.Group", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsExpanded");
+
+                    b.Property<bool>("IsSelected");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,7 +68,7 @@ namespace Model.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("DBO.DataModel.IpCamera", b =>
+            modelBuilder.Entity("DBO.Model.DataModel.IpCamera", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -90,16 +92,16 @@ namespace Model.Migrations
                     b.ToTable("IpCameras");
                 });
 
-            modelBuilder.Entity("DBO.DataModel.Good", b =>
+            modelBuilder.Entity("DBO.Model.DataModel.Good", b =>
                 {
-                    b.HasOne("DBO.DataModel.Group", "Group")
+                    b.HasOne("DBO.Model.DataModel.Group", "Group")
                         .WithMany("Goods")
                         .HasForeignKey("GroupId");
                 });
 
-            modelBuilder.Entity("DBO.DataModel.Group", b =>
+            modelBuilder.Entity("DBO.Model.DataModel.Group", b =>
                 {
-                    b.HasOne("DBO.DataModel.Group")
+                    b.HasOne("DBO.Model.DataModel.Group")
                         .WithMany("ChildrenGroups")
                         .HasForeignKey("ParentId");
                 });

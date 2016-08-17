@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DBO.DataModel;
-using System.IO;
+﻿using DBO.Model.DataModel;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model
+
+namespace DBO.Model
 {
     public class DBODataContext : DbContext
     {

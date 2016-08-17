@@ -1,4 +1,4 @@
-﻿<Page x:Class="DBO.View.ViewGroupsGoodsPage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,16 +7,11 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:local="clr-namespace:DBO.View"
-      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
-      xmlns:dm="clr-namespace:DBO.DataModel;assembly=DataModel"
+      xmlns:vdm="clr-namespace:DBO.ViewModel.ViewDataModel;assembly=DBO.ViewModel"
+      xmlns:ViewModel="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel" x:Class="DBO.View.ViewGroupsGoodsPage"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="700"
       Title="ViewGoodsPage">
-    <Page.DataContext>
-        <vm:GoodsGroupsViewModel/>
-    </Page.DataContext>
-
-
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,19 +22,21 @@
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TreeView.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <x:Array x:Key="WindowCommandsOverlayBehaviorArray" Type="Controls:WindowCommandsOverlayBehavior">
+            <x:Array x:Key="WindowCommandsOverlayBehaviorArray" Type="{x:Type Controls:WindowCommandsOverlayBehavior}">
                 <Controls:WindowCommandsOverlayBehavior>Always</Controls:WindowCommandsOverlayBehavior>
                 <Controls:WindowCommandsOverlayBehavior>Flyouts</Controls:WindowCommandsOverlayBehavior>
                 <Controls:WindowCommandsOverlayBehavior>HiddenTitleBar</Controls:WindowCommandsOverlayBehavior>
                 <Controls:WindowCommandsOverlayBehavior>Never</Controls:WindowCommandsOverlayBehavior>
             </x:Array>
         </ResourceDictionary>
-
-
     </Page.Resources>
 
-  <Grid>
-        <Grid Name="g1"  >
+    <Page.DataContext>
+        <ViewModel:GoodsGroupsViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid x:Name="g1"  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
@@ -77,18 +74,19 @@
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" >
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                     </Style>
-                    
+
                 </TreeView.ItemContainerStyle>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <i:InvokeCommandAction Command="{Binding SelectionChangedGroupCommand}"
-                                   CommandParameter="{Binding ElementName=groupsTreeView,Path=SelectedItem}"/>
+                                   CommandParameter="{Binding SelectedItem, ElementName=groupsTreeView}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <TreeView.ItemTemplate>
-                    
-                    <HierarchicalDataTemplate DataType="{x:Type dm:Group}"  ItemsSource="{Binding ChildrenGroups}">
+
+                    <HierarchicalDataTemplate DataType="{x:Type vdm:GroupVM}"  ItemsSource="{Binding ChildrenGroups}">
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
@@ -104,13 +102,13 @@
                     <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
                         <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                     Stretch="Uniform"  Width="15" Height="15"
-                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                    Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"/>
                     </Button>
-                <ToggleButton ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}"
-                                   IsChecked="{Binding ElementName=GoodsFlyout, Path=IsOpen}">
-                    <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
-                </ToggleButton>
-            </StackPanel>
+                    <ToggleButton ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}"
+                                   IsChecked="{Binding IsOpen, ElementName=GoodsFlyout}">
+                        <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
+                    </ToggleButton>
+                </StackPanel>
             </materialDesign:PopupBox>
 
 
@@ -136,21 +134,21 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-    </Grid>
-        <Controls:Flyout x:Name="GroupFlyout" Margin="0 22 0 0" Theme="Adapt" IsOpen="{Binding IsShowGroupFlayout}"
+        </Grid>
+        <Controls:Flyout x:Name="GroupFlyout" Margin="0 22 0 0" Theme="Accent" IsOpen="{Binding IsShowGroupFlayout}"
                          Header="Создание новой группы товаров." Position="Left" AnimateOpacity="True">
             <StackPanel>
-                
-               <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
+
+                <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SelectedGroup.Name}" />
-                
+
             </StackPanel>
         </Controls:Flyout>
 
 
-        <Controls:Flyout x:Name="GoodsFlyout" Margin="0 22 0 0" Theme="Adapt"  IsOpen="False" Header="Einstellungen" Position="Right" Width="500" AnimateOpacity="True">
-                    <TextBlock  Width="100" Height="100" Text="Notifications" Foreground="White"/>
+        <Controls:Flyout x:Name="GoodsFlyout" Margin="0 22 0 0" Theme="Accent"  IsOpen="False" Header="Einstellungen" Position="Right" Width="500" AnimateOpacity="True">
+            <TextBlock  Width="100" Height="100" Text="Notifications" Foreground="White"/>
 
-                </Controls:Flyout>
-  </Grid>
+        </Controls:Flyout>
+    </Grid>
 </Page>

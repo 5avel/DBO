@@ -1,16 +1,9 @@
 ﻿using System.Windows.Input;
 using DBO.ViewModel.MVVMLib;
 using System.Collections.ObjectModel;
-using DBO.DataModel;
-using Model;
-using Model.DAL;
-using System.Windows;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using DBO.ViewModel.VMReference;
+using DBO.ViewModel.ViewDataModel;
+using DBO.Model.DAL;
+using DBO.Model.DataModel;
 
 namespace DBO.ViewModel
 {
@@ -175,7 +168,7 @@ namespace DBO.ViewModel
 
         public GoodsGroupsViewModel() // КОНСТРУКТОР
         {
-            Group.PropertyChanged += EntityViewModelPropertyChanged;
+            
             SetGroupBtnState();
             var groups = new GroupsProvider().GetAllGoups();
             GoodsGroupeCollection = new ObservableCollection<GroupVM>();
@@ -184,11 +177,6 @@ namespace DBO.ViewModel
             {
                 GoodsGroupeCollection.Add(GroupVM.CopyTreeChildren(item));
             }
-        }
-
-        private void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            new GroupsProvider().UpdateGoup(sender as Group);
         }
 
         #region Commands

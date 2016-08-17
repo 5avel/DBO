@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DBO.DataModel
+namespace DBO.Model.DataModel
 {
-    public class IpCamera
+    public class IpCamera : BaseDataModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

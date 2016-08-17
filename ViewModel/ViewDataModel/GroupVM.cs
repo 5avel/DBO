@@ -1,15 +1,12 @@
 ﻿using DBO.ViewModel.MVVMLib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DBO.DataModel;
-using Model.DAL;
+using DBO.Model.DAL;
+using DBO.Model.DataModel;
 
-namespace DBO.ViewModel.VMReference
+namespace DBO.ViewModel.ViewDataModel
 {
     public class GroupVM : ObservableObject
     {
@@ -37,13 +34,26 @@ namespace DBO.ViewModel.VMReference
             }
         }
 
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                isSelected = value;
+                OnPropertyChanged(() => IsSelected);
+                new GroupsProvider().UpdateGoup(this.ToGroup());
+            }
+        }
+
         private Group ToGroup()
         {
-            // TODO пропала ветка в первой группе, исправит и проверить.
             Group g = new Group();
             g.ID = ID;
+            g.ParentId = ParentId;
             g.Name = Name;
             g.IsExpanded = IsExpanded;
+            g.IsSelected = IsSelected;
             return g;
         }
 
@@ -64,7 +74,7 @@ namespace DBO.ViewModel.VMReference
 
             Name = group.Name;
             isExpanded = group.IsExpanded;
-
+            isSelected = group.IsSelected;
             ChildrenGroups = new List<GroupVM>();
             Goods = new List<GoodVM>();
         }

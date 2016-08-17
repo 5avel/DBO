@@ -1,10 +1,5 @@
 ﻿using System.Windows.Input;
 using DBO.ViewModel.MVVMLib;
-using System.Collections.ObjectModel;
-using DBO.DataModel;
-using Model;
-using Model.DAL;
-using System.Windows;
 
 namespace DBO.ViewModel
 {

@@ -51,20 +51,13 @@
     <Compile Include="MVVMLib\RelayCommand.cs" />
     <Compile Include="MVVMLib\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VMReference\GoodVM.cs" />
-    <Compile Include="VMReference\GroupVM.cs" />
+    <Compile Include="ViewDataModel\GoodVM.cs" />
+    <Compile Include="ViewDataModel\GroupVM.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{9f448c53-19c0-43d4-bc8e-cc761a75339a}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{A59C8CF4-DE0B-4818-9ACE-53EC78EC0399}</Project>
+      <Project>{a59c8cf4-de0b-4818-9ace-53ec78ec0399}</Project>
       <Name>Model</Name>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,7 @@
-﻿using DBO.DataModel;
-using System;
+﻿using DBO.Model;
+using DBO.Model.DataModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model.DAL
 {
