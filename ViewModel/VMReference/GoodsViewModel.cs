@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using DBO.ViewModel.ViewDataModel;
 using DBO.Model.DAL;
 using DBO.Model.DataModel;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace DBO.ViewModel
 {
@@ -25,8 +27,8 @@ namespace DBO.ViewModel
         }
 
 
-        private ObservableCollection<GroupVM> goodsGroupeCollection; // Коллекция Групп товаров
-        public ObservableCollection<GroupVM> GoodsGroupeCollection
+        private NotifyTaskCompletion<ObservableCollection<GroupVM>> goodsGroupeCollection; // Коллекция Групп товаров
+        public NotifyTaskCompletion<ObservableCollection<GroupVM>> GoodsGroupeCollection
         {
             get { return goodsGroupeCollection; }
             set
@@ -168,15 +170,20 @@ namespace DBO.ViewModel
 
         public GoodsGroupsViewModel() // КОНСТРУКТОР
         {
-            
             SetGroupBtnState();
-            var groups = new GroupsProvider().GetAllGoups();
-            GoodsGroupeCollection = new ObservableCollection<GroupVM>();
+            GoodsGroupeCollection = new NotifyTaskCompletion<ObservableCollection<GroupVM>>(GetAllGoupsAsync());
+        }
 
+        private async Task<ObservableCollection<GroupVM>> GetAllGoupsAsync()
+        {
+            ObservableCollection<GroupVM> res = new ObservableCollection<GroupVM>();
+            var groups = await new GroupsProvider().GetAllGoupsAsync();
+           
             foreach (Group item in groups)
             {
-                GoodsGroupeCollection.Add(GroupVM.CopyTreeChildren(item));
+                res.Add(GroupVM.CopyTreeChildren(item));
             }
+            return res;
         }
 
         #region Commands
@@ -233,6 +240,7 @@ namespace DBO.ViewModel
                 {
                     SelectedGroup = null;
                     SetGroupBtnState();
+                    AddingGroupCommand.CanExecute(false);
                 }));
             }
         }

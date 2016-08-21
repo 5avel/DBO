@@ -43,6 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVMLib\AsyncCommand\AsyncCommandBase.cs" />
+    <Compile Include="MVVMLib\AsyncCommand\DelegateCommand.cs" />
+    <Compile Include="MVVMLib\AsyncCommand\IAsyncCommand.cs" />
+    <Compile Include="MVVMLib\AsyncCommand\NotifyTaskCompletion.cs" />
+    <Compile Include="MVVMLib\AsyncCommand\AsyncCommand.cs" />
+    <Compile Include="MVVMLib\NullToVisibilityConverter.cs" />
+    <Compile Include="MVVMLib\RelayCommandGeneric.cs" />
     <Compile Include="ReferenceViewModel.cs" />
     <Compile Include="VMReference\GoodsViewModel.cs" />
     <Compile Include="IpCameraViewModel.cs" />

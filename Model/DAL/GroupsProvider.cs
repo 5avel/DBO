@@ -1,8 +1,10 @@
 ﻿using DBO.Model.DataModel;
 using Microsoft.EntityFrameworkCore;
-using Model;
+using Microsoft.EntityFrameworkCore.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DBO.Model.DAL
 {
@@ -12,15 +14,16 @@ namespace DBO.Model.DAL
         /// Возврасщает список груп
         /// </summary>
         /// <returns></returns>
-        public List<Group> GetAllGoups()
+        public async Task<List<Group>> GetAllGoupsAsync()
         {
             using (var db = new DBODataContext())
             {
-                return db.Groups
+                await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+                var groups = await db.Groups
                     .Include(x => x.ChildrenGroups)
-                    .ToList()
-                    .Where(x => x.ParentId == null)
-                    .ToList();
+                    .ToListAsync()
+                    .ConfigureAwait(false);
+                return groups.Where(x => x.ParentId == null).ToList();
             }
         }
 
