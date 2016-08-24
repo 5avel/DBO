@@ -56,15 +56,15 @@
                 <ToggleButton x:Name="trExp" Content="H" Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignActionToggleButton}"
                           ToolTip="MaterialDesignActionToggleButton" />
                 <Button ToolTip="Добавить новую группу." Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                    Command="{Binding AddingGroupCommand}" IsEnabled="{Binding AddingGroupCommand.CanExecute, Mode=TwoWay}" >
+                    Command="{Binding AddingGroupCommand}"  >
                     <materialDesign:PackIcon Kind="Plus" />
                 </Button>
                 <Button ToolTip="Удалить выбраную группу." Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                    Command="{Binding RemoveGroupCommand}" IsEnabled="{Binding IsBtnRemoveEnabled}" >
+                    Command="{Binding RemoveGroupCommand}" CommandParameter="{Binding SelectedItem, ElementName=groupsTreeView}" >
                     <materialDesign:PackIcon Kind="Delete" />
                 </Button>
                 <Button ToolTip="Редактировать выбраную группу." Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                    Command="{Binding EditingGroupCommand}" IsEnabled="{Binding IsBtnEditEnabled}" >
+                    Command="{Binding EditingGroupCommand}" CommandParameter="{Binding SelectedItem, ElementName=groupsTreeView}">
                     <materialDesign:PackIcon Kind="TableEdit" />
                 </Button>
             </StackPanel>
@@ -81,7 +81,7 @@
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" >
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                        <!--<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>-->
                     </Style>
 
                 </TreeView.ItemContainerStyle>
@@ -101,21 +101,21 @@
             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0, 5"   VerticalAlignment="Stretch" Width="5" Grid.RowSpan="2"/>
 
             <!--Кнопки управления товароми-->
-            <materialDesign:PopupBox  Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-        PlacementMode="RightAndAlignMiddles" Width="30" Height="30" UnfurlOrientation="Horizontal" ToolTip="Manage items"
-        Margin="15 0 0 5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <StackPanel Orientation="Horizontal">
-                    <Button ToolTip="Удалить выбранный элемент." Width="30" Height="30" Command="{Binding RemoveSelectedItemCommand}">
-                        <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-                    Stretch="Uniform"  Width="15" Height="15"
-                    Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"/>
-                    </Button>
-                    <ToggleButton ToolTip="Добавить новую группу." Width="30" Height="30" Style="{StaticResource MaterialDesignActionToggleButton}"
-                                   IsChecked="{Binding IsOpen, ElementName=GoodsFlyout}">
-                        <materialDesign:PackIcon Kind="Plus" Height="21" Width="21" />
-                    </ToggleButton>
-                </StackPanel>
-            </materialDesign:PopupBox>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                
+                <Button ToolTip="Добавить новую группу." Width="30" Height="30" Margin="10 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                    >
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
+                <Button ToolTip="Удалить выбраную группу." Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                   >
+                    <materialDesign:PackIcon Kind="Delete" />
+                </Button>
+                <Button ToolTip="Редактировать выбраную группу." Width="30" Height="30" Margin="0 0 5 0" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                     >
+                    <materialDesign:PackIcon Kind="TableEdit" />
+                </Button>
+            </StackPanel>
 
 
             <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >

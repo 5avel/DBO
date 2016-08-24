@@ -34,6 +34,7 @@ namespace DBO.ViewModel
             set
             {
                 goodsGroupeCollection = value;
+                OnPropertyChanged(() => GoodsGroupeCollection);
             }
         }
 
@@ -56,7 +57,7 @@ namespace DBO.ViewModel
             {
                 isShowGroupFlayout = value;
                 OnPropertyChanged(() => IsShowGroupFlayout);
-                if(!isShowGroupFlayout)
+                if (!isShowGroupFlayout)
                 {
                     isAddingGroup = isEditingGroup = false;
                 }
@@ -178,7 +179,7 @@ namespace DBO.ViewModel
         {
             ObservableCollection<GroupVM> res = new ObservableCollection<GroupVM>();
             var groups = await new GroupsProvider().GetAllGoupsAsync();
-           
+
             foreach (Group item in groups)
             {
                 res.Add(GroupVM.CopyTreeChildren(item));
@@ -195,11 +196,13 @@ namespace DBO.ViewModel
         {
             get
             {
-                return selectionChangedGroupCommand ?? (selectionChangedGroupCommand = new RelayCommand<GroupVM>((param)=> 
+                return selectionChangedGroupCommand ?? (selectionChangedGroupCommand = new RelayCommand<GroupVM>((param) =>
                 {
                     SelectedGroup = param;
                     SetGroupBtnState();
-                }));
+                },
+                null
+                ));
             }
         }
 
@@ -208,7 +211,7 @@ namespace DBO.ViewModel
         {
             get
             {
-                return addingGroupCommand ?? (addingGroupCommand = new RelayCommand(() =>
+                return addingGroupCommand ?? (addingGroupCommand = new RelayCommand((param) =>
                 {
                     IsAddingGroup = true;
                     isEditingGroup = false;
@@ -222,12 +225,16 @@ namespace DBO.ViewModel
         {
             get
             {
-                return editingGroupCommand ?? (editingGroupCommand = new RelayCommand(() =>
-                {
-                    IsAddingGroup = false;
-                    IsEditingGroup = true;
-                    SetGroupBtnState();
-                }));
+                return editingGroupCommand ?? (editingGroupCommand = new RelayCommand(
+                    (param) =>
+                    { // Действие комманды
+
+                    },
+                    (param) =>
+                    { // вернуть true если комманда может выполнится
+                        return param != null;
+                    }
+                    ));
             }
         }
 
@@ -236,12 +243,17 @@ namespace DBO.ViewModel
         {
             get
             {
-                return removeGroupCommand ?? (removeGroupCommand = new RelayCommand(() =>
-                {
-                    SelectedGroup = null;
-                    SetGroupBtnState();
-                    AddingGroupCommand.CanExecute(false);
-                }));
+                return removeGroupCommand ?? (removeGroupCommand = new RelayCommand<GroupVM>(
+                    (param) =>
+                    {
+                        // TODO Удалить запись из БД, и обновить дерево!
+                        GoodsGroupeCollection.Result.Remove(param);
+                    },
+                    (param) =>
+                    {
+                        return param != null;
+                    }
+                ));
             }
         }
 
@@ -249,7 +261,7 @@ namespace DBO.ViewModel
         {
             IsBtnAddEnabled = !isAddingGroup && !isEditingGroup;
             IsBtnEditEnabled = !isAddingGroup && !isEditingGroup && isSelectedGroupe;
-            IsBtnRemoveEnabled= !isAddingGroup && !isEditingGroup && isSelectedGroupe;
+            IsBtnRemoveEnabled = !isAddingGroup && !isEditingGroup && isSelectedGroupe;
         }
 
         #endregion Groups Commands

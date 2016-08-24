@@ -22,10 +22,10 @@ namespace DBO.ViewModel.MVVMLib
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<T> execute)
-            : this(execute, null)
-        {
-        }
+        //public RelayCommand(Action<T> execute)
+        //    : this(execute, null)
+        //{
+        //}
 
         /// <summary>
         /// Creates a new command with conditional execution.
@@ -47,7 +47,7 @@ namespace DBO.ViewModel.MVVMLib
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute((T)parameter);
+            return _canExecute == null ? true : _canExecute.Invoke((T)parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -66,7 +66,7 @@ namespace DBO.ViewModel.MVVMLib
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            _execute.Invoke((T)parameter);
         }
 
         #endregion

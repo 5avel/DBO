@@ -5,41 +5,38 @@ namespace DBO.ViewModel.MVVMLib
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action _handler;
-        private bool _isEnabled;
+        private readonly Action<object> execute;
+        readonly Predicate<object> canExecute;
 
-        public RelayCommand(Action handler)
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
-            _handler = handler;
+            if (execute == null) throw new ArgumentNullException("handler");
+            
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set
-            {
-                if (value != _isEnabled)
-                {
-                    _isEnabled = value;
-                    if (CanExecuteChanged != null)
-                    {
-                        CanExecuteChanged(this, EventArgs.Empty);
-                    }
-                }
-            }
-        }
 
         public bool CanExecute(object parameter)
         {
-            //return IsEnabled;
-            return true;
+            return canExecute == null ? true : canExecute.Invoke(parameter);
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
 
         public void Execute(object parameter)
         {
-            _handler();
+            execute.Invoke(parameter);
         }
     } 
 }

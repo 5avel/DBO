@@ -13,10 +13,11 @@ namespace DBO.ViewModel.MVVMLib
 
         protected virtual void OnPropertyChanged<T>(Expression<Func<T>> changedProperty)
         {
-            if (PropertyChanged != null)
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
             {
                 string propName = ((MemberExpression)changedProperty.Body).Member.Name;
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                handler.Invoke(this, new PropertyChangedEventArgs(propName));
             }
         }
     }

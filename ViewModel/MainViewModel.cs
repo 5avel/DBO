@@ -27,7 +27,7 @@ namespace DBO.ViewModel
         {
             get
             {
-                return _windowsSales ?? (_windowsSales = new RelayCommand(() =>
+                return _windowsSales ?? (_windowsSales = new RelayCommand((param) =>
                 {
                     FrameSource = "ViewOperationsPage.xaml";
                 }));
@@ -39,7 +39,7 @@ namespace DBO.ViewModel
         {
             get
             {
-                return _windowsReference ?? (_windowsReference = new RelayCommand(() =>
+                return _windowsReference ?? (_windowsReference = new RelayCommand((param) =>
                 {
                     FrameSource = "Reference.xaml";
                 }));
@@ -52,7 +52,7 @@ namespace DBO.ViewModel
         {
             get
             {
-                return _windowsIpCameras ?? (_windowsIpCameras = new RelayCommand(() =>
+                return _windowsIpCameras ?? (_windowsIpCameras = new RelayCommand((param) =>
                 {
                     FrameSource = "IpCameras.xaml";
                 }));

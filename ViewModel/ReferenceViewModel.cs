@@ -33,7 +33,7 @@ namespace DBO.ViewModel
         {
             get
             {
-                return groupsGoodsPage ?? (groupsGoodsPage = new RelayCommand(() =>
+                return groupsGoodsPage ?? (groupsGoodsPage = new RelayCommand((param) =>
                 {
                     ReferenceFrameSource = "ViewsReference/ViewGroupsGoodsPage.xaml";
                 }));
