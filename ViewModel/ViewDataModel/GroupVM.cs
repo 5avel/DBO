@@ -46,7 +46,7 @@ namespace DBO.ViewModel.ViewDataModel
             }
         }
 
-        private Group ToGroup()
+        public Group ToGroup()
         {
             Group g = new Group();
             g.ID = ID;

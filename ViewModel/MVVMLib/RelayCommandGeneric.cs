@@ -22,10 +22,10 @@ namespace DBO.ViewModel.MVVMLib
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        //public RelayCommand(Action<T> execute)
-        //    : this(execute, null)
-        //{
-        //}
+        public RelayCommand(Action<T> execute)
+            : this(execute, null)
+        {
+        }
 
         /// <summary>
         /// Creates a new command with conditional execution.
@@ -35,7 +35,7 @@ namespace DBO.ViewModel.MVVMLib
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
             if (execute == null)
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
 
             _execute = execute;
             _canExecute = canExecute;

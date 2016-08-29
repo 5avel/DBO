@@ -27,6 +27,16 @@ namespace DBO.Model.DAL
             }
         }
 
+        public async Task RemoveGoupAsync(Group g)
+        {
+            using (var db = new DBODataContext())
+            {
+                await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+                db.Groups.Remove(g);
+                await db.SaveChangesAsync();
+            }
+        }
+
         public void UpdateGoup(Group g)
         {
             using (var db = new DBODataContext())

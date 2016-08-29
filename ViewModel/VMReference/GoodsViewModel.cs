@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using DBO.ViewModel.ViewDataModel;
 using DBO.Model.DAL;
 using DBO.Model.DataModel;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace DBO.ViewModel
 {
@@ -14,156 +12,44 @@ namespace DBO.ViewModel
         #region Properties
         #region Groups Properties
 
-        private GroupVM selectedGroup; // Выбранная группа
+        private GroupVM _selectedGroup; // Выбранная группа
         public GroupVM SelectedGroup
         {
-            get { return selectedGroup; }
+            get { return _selectedGroup; }
             set
             {
-                selectedGroup = value;
-                IsSelectedGroupe = selectedGroup != null;
-                OnPropertyChanged(() => SelectedGroup);
+                _selectedGroup = value;
+                OnPropertyChanged();
             }
         }
 
 
-        private NotifyTaskCompletion<ObservableCollection<GroupVM>> goodsGroupeCollection; // Коллекция Групп товаров
-        public NotifyTaskCompletion<ObservableCollection<GroupVM>> GoodsGroupeCollection
+        private ObservableCollection<GroupVM> _goodsGroupeCollection; // Коллекция Групп товаров
+        public ObservableCollection<GroupVM> GoodsGroupeCollection
         {
-            get { return goodsGroupeCollection; }
+            get { return _goodsGroupeCollection ?? (_goodsGroupeCollection = new ObservableCollection<GroupVM>()); }
             set
             {
-                goodsGroupeCollection = value;
-                OnPropertyChanged(() => GoodsGroupeCollection);
+                _goodsGroupeCollection = value;
+                OnPropertyChanged();
             }
         }
 
-        private bool isSelectedGroupe; // Флаг указывающий выбрана ли группа товаров в дереве
-        public bool IsSelectedGroupe
-        {
-            get { return isSelectedGroupe; }
-            set
-            {
-                isSelectedGroupe = value;
-                OnPropertyChanged(() => IsSelectedGroupe);
-            }
-        }
 
-        private bool isShowGroupFlayout; // Состояние добавления группы
+        private bool _isShowGroupFlayout; // Состояние добавления группы
         public bool IsShowGroupFlayout
         {
-            get { return isShowGroupFlayout; }
+            get { return _isShowGroupFlayout; }
             set
             {
-                isShowGroupFlayout = value;
-                OnPropertyChanged(() => IsShowGroupFlayout);
-                if (!isShowGroupFlayout)
-                {
-                    isAddingGroup = isEditingGroup = false;
-                }
-                SetGroupBtnState();
+                _isShowGroupFlayout = value;
+                OnPropertyChanged();
             }
         }
-
-        private bool isAddingGroup; // Состояние добавления группы
-        public bool IsAddingGroup
-        {
-            get { return isAddingGroup; }
-            set
-            {
-                isAddingGroup = value;
-                OnPropertyChanged(() => IsAddingGroup);
-                IsShowGroupFlayout = isAddingGroup;
-            }
-        }
-
-        private bool isEditingGroup; // Состояние изменения группы
-        public bool IsEditingGroup
-        {
-            get { return isEditingGroup; }
-            set
-            {
-                isEditingGroup = value;
-                OnPropertyChanged(() => IsEditingGroup);
-                IsShowGroupFlayout = isEditingGroup;
-            }
-        }
-
-
-        private bool isBtnAddEnabled; // Флаг указывающий активность кнопки добавления группы товаров
-        public bool IsBtnAddEnabled
-        {
-            get { return isBtnAddEnabled; }
-            set
-            {
-                isBtnAddEnabled = value;
-                OnPropertyChanged(() => IsBtnAddEnabled);
-            }
-        }
-
-        private bool isBtnEditEnabled; // Флаг указывающий активность кнопки редактирования группы товаров
-        public bool IsBtnEditEnabled
-        {
-            get { return isBtnEditEnabled; }
-            set
-            {
-                isBtnEditEnabled = value;
-                OnPropertyChanged(() => IsBtnEditEnabled);
-            }
-        }
-
-        private bool isBtnRemoveEnabled; // Флаг указывающий активность кнопки удаления группы товаров
-        public bool IsBtnRemoveEnabled
-        {
-            get { return isBtnRemoveEnabled; }
-            set
-            {
-                isBtnRemoveEnabled = value;
-                OnPropertyChanged(() => IsBtnRemoveEnabled);
-            }
-        }
-
-
 
         #endregion Groups Properties
 
         #region Goods Properties
-
-        private ObservableCollection<Good> goodsCollection;  // ТОвары выбранной группы
-        public ObservableCollection<Good> GoodsCollection
-        {
-            get { return goodsCollection; }
-            set
-            {
-                goodsCollection = value;
-                OnPropertyChanged(() => GoodsCollection);
-            }
-        }
-
-        private bool isSelectedGood;
-        public bool IsSelectedGood
-        {
-            get { return isSelectedGood; }
-            set
-            {
-                isSelectedGood = value;
-                OnPropertyChanged(() => IsSelectedGood);
-            }
-        }
-
-        private Good selectedGood; // Выбранный товар
-        public Good SelectedGood
-        {
-            get { return selectedGood; }
-            set
-            {
-                selectedGood = value;
-
-                if (value == null) IsSelectedGood = false;
-                else IsSelectedGood = true;
-                //RaisePropertyChanged(() => SelectedGood);
-            }
-        }
 
         #endregion Goods Properties
 
@@ -171,97 +57,101 @@ namespace DBO.ViewModel
 
         public GoodsGroupsViewModel() // КОНСТРУКТОР
         {
-            SetGroupBtnState();
-            GoodsGroupeCollection = new NotifyTaskCompletion<ObservableCollection<GroupVM>>(GetAllGoupsAsync());
-        }
-
-        private async Task<ObservableCollection<GroupVM>> GetAllGoupsAsync()
-        {
-            ObservableCollection<GroupVM> res = new ObservableCollection<GroupVM>();
-            var groups = await new GroupsProvider().GetAllGoupsAsync();
-
-            foreach (Group item in groups)
-            {
-                res.Add(GroupVM.CopyTreeChildren(item));
-            }
-            return res;
+           LoadGroupCommand.ExecuteAsync(null);
         }
 
         #region Commands
 
         #region Groups Commands
 
-        private RelayCommand<GroupVM> selectionChangedGroupCommand;
+
+        private IAsyncCommand _loadGroupCommand;
+        public IAsyncCommand LoadGroupCommand
+        {
+            get
+            {
+                return _loadGroupCommand ?? (_loadGroupCommand = AsyncCommand.Create(
+                    async () =>
+                    {
+                        GoodsGroupeCollection.Clear();
+                        var groups = await new GroupsProvider().GetAllGoupsAsync();
+                        foreach (Group item in groups)
+                        {
+                            GoodsGroupeCollection.Add(GroupVM.CopyTreeChildren(item));
+                        }
+                    }
+                ));
+            }
+        }
+
+        private RelayCommand<GroupVM> _selectionChangedGroupCommand;
         public ICommand SelectionChangedGroupCommand
         {
             get
             {
-                return selectionChangedGroupCommand ?? (selectionChangedGroupCommand = new RelayCommand<GroupVM>((param) =>
+                return _selectionChangedGroupCommand ?? (_selectionChangedGroupCommand = new RelayCommand<GroupVM>((param) =>
                 {
                     SelectedGroup = param;
-                    SetGroupBtnState();
                 },
                 null
                 ));
             }
         }
 
-        private ICommand addingGroupCommand;
+        private ICommand _addingGroupCommand;
         public ICommand AddingGroupCommand
         {
             get
             {
-                return addingGroupCommand ?? (addingGroupCommand = new RelayCommand((param) =>
+                return _addingGroupCommand ?? (_addingGroupCommand = new RelayCommand((param) =>
                 {
-                    IsAddingGroup = true;
-                    isEditingGroup = false;
-                    SetGroupBtnState();
+
                 }));
             }
         }
 
-        private ICommand editingGroupCommand;
+        private ICommand _editingGroupCommand;
         public ICommand EditingGroupCommand
         {
             get
             {
-                return editingGroupCommand ?? (editingGroupCommand = new RelayCommand(
+                return _editingGroupCommand ?? (_editingGroupCommand = new RelayCommand(
                     (param) =>
                     { // Действие комманды
 
                     },
-                    (param) =>
-                    { // вернуть true если комманда может выполнится
-                        return param != null;
-                    }
-                    ));
+                    (param) => param != null));
             }
         }
 
-        private ICommand removeGroupCommand;
+        //private IAsyncCommand _removeGroupCommand;
+        //public IAsyncCommand RemoveGroupCommand
+        //{
+        //    get
+        //    {
+        //        return _removeGroupCommand ?? (_removeGroupCommand = AsyncCommand.Create(
+        //             async () =>
+        //             {
+        //                 await new GroupsProvider().RemoveGoupAsync(SelectedGroup.ToGroup());
+        //                 await LoadGroupCommand.ExecuteAsync(null);
+        //             }
+        //        ));
+        //    }
+        //}
+
+        private RelayCommand<GroupVM> _removeGroupCommand;
         public ICommand RemoveGroupCommand
         {
             get
             {
-                return removeGroupCommand ?? (removeGroupCommand = new RelayCommand<GroupVM>(
-                    (param) =>
-                    {
-                        // TODO Удалить запись из БД, и обновить дерево!
-                        GoodsGroupeCollection.Result.Remove(param);
-                    },
-                    (param) =>
-                    {
-                        return param != null;
-                    }
-                ));
+                return _removeGroupCommand ?? (_removeGroupCommand = new RelayCommand<GroupVM>(
+                     async (param) =>
+                     {
+                         await new GroupsProvider().RemoveGoupAsync(param.ToGroup());
+                         await LoadGroupCommand.ExecuteAsync(null);
+                     },
+                     (param) => param != null ));
             }
-        }
-
-        private void SetGroupBtnState()
-        {
-            IsBtnAddEnabled = !isAddingGroup && !isEditingGroup;
-            IsBtnEditEnabled = !isAddingGroup && !isEditingGroup && isSelectedGroupe;
-            IsBtnRemoveEnabled = !isAddingGroup && !isEditingGroup && isSelectedGroupe;
         }
 
         #endregion Groups Commands

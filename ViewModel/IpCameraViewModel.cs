@@ -15,7 +15,7 @@ namespace DBO.ViewModel
             set
             {
                 ipCameraCollection = value;
-                OnPropertyChanged(() => IpCameraCollection);
+                OnPropertyChanged();
             }
         }
 
@@ -27,7 +27,7 @@ namespace DBO.ViewModel
             set
             {
                 ipCamSource = value;
-                OnPropertyChanged(() => IPCameraSource);
+                OnPropertyChanged();
             }
         }
 
@@ -41,7 +41,7 @@ namespace DBO.ViewModel
                 selectedIpCamera = value;
                 string string_source = "rtsp:///" + selectedIpCamera.Cam_Login + ":" + selectedIpCamera.Cam_Password + "@" + selectedIpCamera.Cam_IpAddress + "/" + selectedIpCamera.Name + ".sdp";
                 IPCameraSource = string_source;
-                OnPropertyChanged(() => SelectedIpCamera);
+                OnPropertyChanged();
             }
         }
 
