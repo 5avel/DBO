@@ -18,7 +18,7 @@ namespace DBO.Model.DAL
         {
             using (var db = new DBODataContext())
             {
-                await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+               // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
                 var groups = await db.Groups
                     .Include(x => x.ChildrenGroups)
                     .ToListAsync()
@@ -27,11 +27,23 @@ namespace DBO.Model.DAL
             }
         }
 
+        public List<Group> GetAllGoupsList()
+        {
+            using (var db = new DBODataContext())
+            {
+                // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+                var groups = db.Groups
+                    .Include(x => x.ChildrenGroups)
+                    .ToList();
+                return groups;
+            }
+        }
+
         public async Task RemoveGoupAsync(Group g)
         {
             using (var db = new DBODataContext())
             {
-                await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+               // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
                 db.Groups.Remove(g);
                 await db.SaveChangesAsync();
             }
@@ -42,6 +54,15 @@ namespace DBO.Model.DAL
             using (var db = new DBODataContext())
             {
                 db.Update(g);
+                db.SaveChanges();
+            }
+        }
+
+        public void AddGoup(Group g)
+        {
+            using (var db = new DBODataContext())
+            {
+                db.Add(g);
                 db.SaveChanges();
             }
         }

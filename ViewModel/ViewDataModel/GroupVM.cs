@@ -10,17 +10,19 @@ namespace DBO.ViewModel.ViewDataModel
 {
     public class GroupVM : ObservableObject
     {
-        public virtual int ID { set; get; }
+        public virtual int? ID { set; get; }
 
         public int? ParentId { get; set; }
 
         [ForeignKey("ParentId")]
         public virtual IList<GroupVM> ChildrenGroups { get; set; }
-
+        public virtual GroupVM Parent { get; set; }
 
         [Required] // Обязательный
         [StringLength(32, MinimumLength = 5)]
         public string Name { set; get; }
+
+        public string NameForList { get; set; }
 
         private bool isExpanded;
         public bool IsExpanded
@@ -63,6 +65,7 @@ namespace DBO.ViewModel.ViewDataModel
 
         public GroupVM()
         {
+            ID = null;
             ChildrenGroups = new List<GroupVM>();
             Goods = new List<GoodVM>();
         }
@@ -71,6 +74,9 @@ namespace DBO.ViewModel.ViewDataModel
         {
             ID = group.ID;
             ParentId = group.ParentId;
+
+            if(group.Parent != null)
+                Parent = new GroupVM(group.Parent);
 
             Name = group.Name;
             isExpanded = group.IsExpanded;
@@ -95,6 +101,11 @@ namespace DBO.ViewModel.ViewDataModel
                 }
             }
             return gvm;
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

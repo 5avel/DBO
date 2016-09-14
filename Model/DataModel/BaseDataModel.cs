@@ -7,6 +7,6 @@ namespace DBO.Model.DataModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int ID { set; get; }
+        public virtual int? ID { set; get; }
     }
 }

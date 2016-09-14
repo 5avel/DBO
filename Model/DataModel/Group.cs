@@ -6,15 +6,11 @@ namespace DBO.Model.DataModel
 {
     public class Group : BaseDataModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int ID { set; get; }
-
         public int? ParentId { get; set; }
 
         [ForeignKey("ParentId")]
         public virtual IList<Group> ChildrenGroups { get; set; }
-        
+        public virtual Group Parent { get; set; }
 
         [Required] // Обязательный
         [StringLength(32, MinimumLength = 5)]

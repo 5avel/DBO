@@ -1,6 +1,9 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using DBO.ViewModel.MVVMLib;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Documents;
 using DBO.ViewModel.ViewDataModel;
 using DBO.Model.DAL;
 using DBO.Model.DataModel;
@@ -23,6 +26,16 @@ namespace DBO.ViewModel
             }
         }
 
+        private List<GroupVM> _parenGroups;
+        public List<GroupVM> ParenGroups
+        {
+            get { return _parenGroups ?? (_parenGroups = new List<GroupVM>()); }
+            set
+            {
+                _parenGroups = value;
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<GroupVM> _goodsGroupeCollection; // Коллекция Групп товаров
         public ObservableCollection<GroupVM> GoodsGroupeCollection
@@ -35,6 +48,31 @@ namespace DBO.ViewModel
             }
         }
 
+        private GroupVM _curentGroupe;
+
+        public GroupVM CurentGroupe
+        {
+            get { return _curentGroupe ?? (_curentGroupe = new GroupVM()); }
+            set
+            {
+                _curentGroupe = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private GroupVM _curentGroupeParent;
+
+        public GroupVM CurentGroupeParent
+        {
+            get { return _curentGroupeParent; }
+            set
+            {
+                _curentGroupeParent = ParenGroups.Where((x => x.ID == value?.ID )).SingleOrDefault();
+                OnPropertyChanged();
+            }
+        }
+
+
 
         private bool _isShowGroupFlayout; // Состояние добавления группы
         public bool IsShowGroupFlayout
@@ -45,6 +83,30 @@ namespace DBO.ViewModel
                 _isShowGroupFlayout = value;
                 OnPropertyChanged();
             }
+        }
+
+        private bool _isAddingGroup; // Состояние добавления группы
+        public bool IsAddingGroup
+        {
+            get { return _isAddingGroup; }
+            private set
+            {
+                _isAddingGroup = value;
+                IsEditingGroup =  !_isAddingGroup;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isEditingGroup; // Состояние добавления группы
+        public bool IsEditingGroup
+        {
+            get { return _isEditingGroup; }
+            private set
+            {
+                _isEditingGroup = value;
+                OnPropertyChanged();
+            }
+
         }
 
         #endregion Groups Properties
@@ -105,10 +167,47 @@ namespace DBO.ViewModel
             {
                 return _addingGroupCommand ?? (_addingGroupCommand = new RelayCommand((param) =>
                 {
-
+                    IsAddingGroup = true;
+                    IsShowGroupFlayout = true;
+                    ParenGroups = TreeToList(GoodsGroupeCollection);
+                    CurentGroupe = new GroupVM();
                 }));
             }
         }
+
+        public List<GroupVM> TreeToList(IList<GroupVM> tree, string level = "")
+        {
+            List<GroupVM> list = new List<GroupVM>();
+            foreach (GroupVM item in tree)
+            {
+                item.NameForList = level + item.Name;
+                list.Add(item);
+                if (item.ChildrenGroups.Count > 0)
+                {
+                    list.AddRange(TreeToList(item.ChildrenGroups, level += "    "));
+                    level = "";
+                }
+            }
+            return list;
+        }
+
+        private ICommand _addNewGroupCommand;
+        public ICommand AddNewGroupCommand
+        {
+            get
+            {
+                return _addNewGroupCommand ?? (_addNewGroupCommand = new RelayCommand((param) =>
+                       {
+                           Group grp = CurentGroupe.ToGroup();
+                           grp.ParentId = CurentGroupeParent?.ToGroup().ID;
+                           new GroupsProvider().AddGoup(grp);
+                           IsShowGroupFlayout = false;
+                           LoadGroupCommand.Execute(null);
+                }));
+            }
+        }
+
+
 
         private ICommand _editingGroupCommand;
         public ICommand EditingGroupCommand
@@ -118,9 +217,34 @@ namespace DBO.ViewModel
                 return _editingGroupCommand ?? (_editingGroupCommand = new RelayCommand(
                     (param) =>
                     { // Действие комманды
-
+                        
+                        IsAddingGroup = false;
+                        ParenGroups = TreeToList(GoodsGroupeCollection); // заполняем коллекцию родителей для выбора
+                        
+                        CurentGroupe = param as GroupVM;
+                        ParenGroups.Remove(ParenGroups.SingleOrDefault(x => x.ID == CurentGroupe.ID)); // удоляем текущий элемент из коллекции родителей
+                        CurentGroupeParent = CurentGroupe.Parent;
+                        IsShowGroupFlayout = true;
                     },
                     (param) => param != null));
+            }
+        }
+
+        private ICommand _updateGroupCommand;
+        public ICommand UpdateGroupCommand
+        {
+            get
+            {
+                return _updateGroupCommand ?? (_updateGroupCommand = new RelayCommand((param) =>
+                {
+                    Group grp = CurentGroupe.ToGroup();
+                    grp.ParentId = CurentGroupeParent?.ToGroup().ID;
+                    
+                    new GroupsProvider().UpdateGoup(grp);
+
+                    IsShowGroupFlayout = false;
+                    LoadGroupCommand.Execute(null);
+                }));
             }
         }
 
