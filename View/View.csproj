@@ -96,6 +96,9 @@
     <Compile Include="IpCameras.xaml.cs">
       <DependentUpon>IpCameras.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\ComboBoxEmptyItemConverter.cs" />
+    <Compile Include="ValueConverters\EnumerableNullReplaceConverter.cs" />
+    <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ViewOperationsPage.xaml.cs">
       <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
     </Compile>

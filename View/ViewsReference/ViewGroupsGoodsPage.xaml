@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:vdm="clr-namespace:DBO.ViewModel.ViewDataModel;assembly=DBO.ViewModel"
-     xmlns:convert="clr-namespace:DBO.ViewModel.MVVMLib;assembly=DBO.ViewModel"
+     xmlns:convert="clr-namespace:DBO.View.ValueConverters"
      mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="700"
       Title="ViewGoodsPage">
@@ -30,6 +30,9 @@
             </x:Array>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <convert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <convert:ComboBoxEmptyItemConverter  x:Key="ComboBoxEmptyItemConverter" />
+            <convert:EnumerableNullReplaceConverter  x:Key="EnumerableNullReplaceConverter" />
+            <convert:NullReplaceConverter  x:Key="NullReplaceConverter" />
         </ResourceDictionary>
 
 
@@ -124,7 +127,7 @@
             </StackPanel>
 
 
-            <ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
+            <!--<ListView SelectedItem="{Binding SelectedGood}" ItemsSource="{Binding GoodsCollection}" Grid.Column="1" Grid.Row="1" Margin="10, 5, 5, 5"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="40" Header="Код" DisplayMemberBinding="{Binding Code}"  />
@@ -145,20 +148,22 @@
                         <GridViewColumn Width="40" Header="Код Группы" DisplayMemberBinding="{Binding GoodsGroupeId}"/>
                     </GridView>
                 </ListView.View>
-            </ListView>
+            </ListView>-->
         </Grid>
         <controls:Flyout x:Name="GroupFlyout" Margin="0 22 0 0" Theme="Accent" IsOpen="{Binding IsShowGroupFlayout}"
                          Header="Создание новой группы товаров." Position="Left" AnimateOpacity="True">
             <StackPanel>
 
                 <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CurentGroupe.Name}" />
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding NewOrEditingGroupe.Name}" />
 
-
-                <ComboBox ItemsSource="{Binding ParenGroups}" DisplayMemberPath="NameForList"  SelectedItem="{Binding CurentGroupeParent}"
-                    IsSynchronizedWithCurrentItem="True" Width="200" >
-                </ComboBox>
-
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <Button Command="{Binding RemoveParentGroupCommand}" Content="Очистить" Margin="5" />
+                    <ComboBox ItemsSource="{Binding ParenGroups}" IsEnabled="{Binding IsSelectionParentEnabled}"
+                              DisplayMemberPath="NameForList"  SelectedItem="{Binding NewOrEditingGroupeParent}"
+                         Width="200">
+                    </ComboBox>
+                </StackPanel>
 
                 <Button Command="{Binding AddNewGroupCommand}" Visibility="{Binding IsAddingGroup, Converter={StaticResource BooleanToVisibilityConverter}}" >ADD</Button>
                 <Button Command="{Binding UpdateGroupCommand}"  Visibility="{Binding IsEditingGroup, Converter={StaticResource BooleanToVisibilityConverter}}" >Save</Button>
