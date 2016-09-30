@@ -1,5 +1,5 @@
 ﻿<Page xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-    xmlns:viewModel="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel" x:Class="DBO.View.ViewGroupsGoodsPage"
+    x:Class="DBO.View.ViewGroupsGoodsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,9 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-      xmlns:vdm="clr-namespace:DBO.ViewModel.ViewDataModel;assembly=DBO.ViewModel"
      xmlns:convert="clr-namespace:DBO.View.ValueConverters"
+     xmlns:viewModel1="clr-namespace:DBO.ViewModel"
+     xmlns:vdm="clr-namespace:DBO.ViewModel.ViewDataModel"
      mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="700"
       Title="ViewGoodsPage">
@@ -40,7 +41,7 @@
     </Page.Resources>
 
     <Page.DataContext>
-        <viewModel:GoodsGroupsViewModel/>
+        <viewModel1:GoodsGroupsViewModel/>
     </Page.DataContext>
 
     <Grid>

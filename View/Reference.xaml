@@ -6,9 +6,10 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:DBO.View"
       xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
+      xmlns:viewModel="clr-namespace:DBO.ViewModel"
       mc:Ignorable="d">
     <Page.DataContext>
-        <vm:ReferenceViewModel/>
+        <viewModel:ReferenceViewModel/>
     </Page.DataContext>
 
     <Grid>

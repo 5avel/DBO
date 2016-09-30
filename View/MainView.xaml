@@ -13,11 +13,11 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{StaticResource MaterialDesignFont}"
-        xmlns:vm ="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel" 
+        xmlns:viewModel="clr-namespace:DBO.ViewModel"
         ShowIconOnTitleBar="True" Icon="img\Delphin.ico" HorizontalAlignment="Center">
 
     <Window.DataContext>
-        <vm:MainViewModel/>
+        <viewModel:MainViewModel/>
     </Window.DataContext>
 
     <Window.Resources>

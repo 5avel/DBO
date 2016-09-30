@@ -12,8 +12,7 @@ namespace DBO.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
-            optionsBuilder.UseSqlite(@"Data Source = .\..\..\..\Data\DBO.db");
+            optionsBuilder.UseSqlite(@"Data Source = .\Data\DBO.db");
         }
     }
 }

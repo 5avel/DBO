@@ -4,12 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DBO.View"
-      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
+      
+      xmlns:viewModel="clr-namespace:DBO.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ViewOperationsPage">
     <Page.DataContext>
-        <vm:MainViewModel/>
+        <viewModel:MainViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
