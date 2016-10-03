@@ -14,7 +14,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="{StaticResource MaterialDesignFont}"
         xmlns:viewModel="clr-namespace:DBO.ViewModel"
-        ShowIconOnTitleBar="True" Icon="img\Delphin.ico" HorizontalAlignment="Center">
+        ShowIconOnTitleBar="True" Icon="img/Delphin.ico" HorizontalAlignment="Center">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -35,6 +35,7 @@
             <Button Content="Сервис"  />
             <Button Content="Обмен данными"   />
             <Button Content="Камеры"  Command="{Binding WindowsIpCameras}"  />
+            <Button Content="Настройки"  Command="{Binding WindowsOptions}"  />
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Frame Source="{Binding FrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>

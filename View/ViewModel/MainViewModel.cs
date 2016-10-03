@@ -46,6 +46,18 @@ namespace DBO.ViewModel
             }
         }
 
+        private ICommand _windowsOptions;
+        public ICommand WindowsOptions
+        {
+            get
+            {
+                return _windowsOptions ?? (_windowsOptions = new RelayCommand((param) =>
+                {
+                    FrameSource = "Options.xaml";
+                }));
+            }
+        }
+
         private ICommand _windowsIpCameras;
 
         public ICommand WindowsIpCameras

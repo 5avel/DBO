@@ -3,28 +3,28 @@ using DBO.ViewModel.MVVMLib;
 
 namespace DBO.ViewModel
 {
-    public class ReferenceViewModel : ViewModelBase
+    public class OptionsViewModel : ViewModelBase
     {
         #region Public Properties
 
 
-        private string referenceFrameSource;
+        private string optionsFrameSource;
 
-        public string ReferenceFrameSource
+        public string OptionsFrameSource
         {
-            get { return referenceFrameSource; }
+            get { return optionsFrameSource; }
             set
             {
-                referenceFrameSource = value;
+                optionsFrameSource = value;
                 OnPropertyChanged();
             }
         }
 
         #endregion Public Properties
 
-        public ReferenceViewModel() // КОНСТРУКТОР
+        public OptionsViewModel() // КОНСТРУКТОР
         {
-            ReferenceFrameSource = "ViewsReference/ViewGroupsGoodsPage.xaml"; // вид при старте
+            OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml"; // вид при старте
         }
 
 
@@ -35,7 +35,7 @@ namespace DBO.ViewModel
             {
                 return _optionsPage ?? (_optionsPage = new RelayCommand((param) =>
                 {
-                    ReferenceFrameSource = "ViewsReference/ViewGroupsGoodsPage.xaml";
+                    OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml";
                 }));
             }
         }

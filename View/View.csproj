@@ -64,9 +64,12 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dragablz">
+      <HintPath>Lib\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
@@ -74,6 +77,10 @@
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\MaterialDesignThemes.MahApps.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.1.0.657, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
@@ -185,15 +192,23 @@
       <DependentUpon>20160817143109_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Migrations\DBODataContextModelSnapshot.cs" />
-    <Compile Include="Reference.xaml.cs">
+    <Compile Include="ViewModel\ReferenceViewModel.cs" />
+    <Compile Include="ViewModel\VMOptions\InterfesViewModel.cs" />
+    <Compile Include="View\Options.xaml.cs">
+      <DependentUpon>Options.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewsOptions\ViewInterfesPage.xaml.cs">
+      <DependentUpon>ViewInterfesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reference.xaml.cs">
       <DependentUpon>Reference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IpCameras.xaml.cs">
+    <Compile Include="View\IpCameras.xaml.cs">
       <DependentUpon>IpCameras.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ValueConverters\ComboBoxEmptyItemConverter.cs" />
-    <Compile Include="ValueConverters\EnumerableNullReplaceConverter.cs" />
-    <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
+    <Compile Include="View\ValueConverters\ComboBoxEmptyItemConverter.cs" />
+    <Compile Include="View\ValueConverters\EnumerableNullReplaceConverter.cs" />
+    <Compile Include="View\ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ViewModel\IpCameraViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MVVMLib\AsyncCommand.cs" />
@@ -206,17 +221,17 @@
     <Compile Include="ViewModel\MVVMLib\RelayCommand.cs" />
     <Compile Include="ViewModel\MVVMLib\RelayCommandGeneric.cs" />
     <Compile Include="ViewModel\MVVMLib\ViewModelBase.cs" />
-    <Compile Include="ViewModel\ReferenceViewModel.cs" />
+    <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ViewDataModel\GoodVM.cs" />
     <Compile Include="ViewModel\ViewDataModel\GroupVM.cs" />
     <Compile Include="ViewModel\VMReference\GoodsViewModel.cs" />
-    <Compile Include="ViewOperationsPage.xaml.cs">
+    <Compile Include="View\ViewOperationsPage.xaml.cs">
       <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsReference\ViewGroupsGoodsPage.xaml.cs">
+    <Compile Include="View\ViewsReference\ViewGroupsGoodsPage.xaml.cs">
       <DependentUpon>ViewGroupsGoodsPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainView.xaml">
+    <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,23 +239,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainView.xaml.cs">
+    <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Reference.xaml">
+    <Page Include="View\Options.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IpCameras.xaml">
+    <Page Include="View\ViewsOptions\ViewInterfesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewOperationsPage.xaml">
+    <Page Include="View\Reference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewsReference\ViewGroupsGoodsPage.xaml">
+    <Page Include="View\IpCameras.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewOperationsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewsReference\ViewGroupsGoodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,27 +295,24 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="View_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\Delphin.ico" />
+    <Resource Include="View\img\Delphin.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="View\img\add.bmp" />
+    <Resource Include="View\img\edit.bmp" />
+    <Resource Include="View\img\remove.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewsShared\" />
+    <Resource Include="View\img\service.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\add.bmp" />
-    <Resource Include="img\edit.bmp" />
-    <Resource Include="img\remove.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="img\service.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="img\reports.png" />
+    <Resource Include="View\img\reports.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -305,6 +325,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\MaterialDesignThemes.MahApps.dll" />
+    <Content Include="Lib\MaterialDesignThemes.MahApps.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

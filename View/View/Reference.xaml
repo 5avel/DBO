@@ -3,9 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      xmlns:local="clr-namespace:DBO.View"
-      xmlns:vm="clr-namespace:DBO.ViewModel;assembly=DBO.ViewModel"
       xmlns:viewModel="clr-namespace:DBO.ViewModel"
       mc:Ignorable="d">
     <Page.DataContext>
