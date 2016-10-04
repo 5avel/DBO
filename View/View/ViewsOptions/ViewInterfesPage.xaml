@@ -1,4 +1,4 @@
-﻿<Page xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+﻿<Page 
     x:Class="DBO.View.ViewInterfesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

@@ -151,7 +151,7 @@
                 </ListView.View>
             </ListView>-->
         </Grid>
-        <controls:Flyout x:Name="GroupFlyout" Margin="0 22 0 0" Theme="Accent" IsOpen="{Binding IsShowGroupFlayout}"
+        <controls:Flyout x:Name="GroupFlyout" Margin="0 22 0 0" Theme="Adapt" IsOpen="{Binding IsShowGroupFlayout}"
                          Header="Создание новой группы товаров." Position="Left" AnimateOpacity="True">
             <StackPanel>
 
