@@ -225,9 +225,6 @@
     <Compile Include="ViewModel\ViewDataModel\GoodVM.cs" />
     <Compile Include="ViewModel\ViewDataModel\GroupVM.cs" />
     <Compile Include="ViewModel\VMReference\GoodsViewModel.cs" />
-    <Compile Include="View\ViewOperationsPage.xaml.cs">
-      <DependentUpon>ViewOperationsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ViewsReference\ViewGroupsGoodsPage.xaml.cs">
       <DependentUpon>ViewGroupsGoodsPage.xaml</DependentUpon>
     </Compile>
@@ -256,10 +253,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\IpCameras.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\ViewOperationsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

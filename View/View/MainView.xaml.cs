@@ -27,6 +27,7 @@ namespace DBO.View
         public MainView()
         {            
             InitializeComponent();
+            //DataContext.FrameSource = "Reference.xaml"; // вид при старте
         }
     }
 }

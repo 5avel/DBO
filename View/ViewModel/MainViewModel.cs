@@ -7,66 +7,28 @@ namespace DBO.ViewModel
     {
         public MainViewModel()
         {
-            FrameSource = "Reference.xaml"; // вид при старте
+            
         }
-        private string frameSource;
 
+        private string _frameSource;
         public string FrameSource
         {
-            get { return frameSource; }
+            get { return _frameSource; }
             set
             {
-                frameSource = value;
+                _frameSource = value;
                 OnPropertyChanged();
             }
         }
 
-
-        private ICommand _windowsSales;
-        public ICommand WindowsSales
+        private ICommand _setMainFrameSourceCommand;
+        public ICommand SetMainFrameSourceCommand
         {
             get
             {
-                return _windowsSales ?? (_windowsSales = new RelayCommand((param) =>
+                return _setMainFrameSourceCommand ?? (_setMainFrameSourceCommand = new RelayCommand((param) =>
                 {
-                    FrameSource = "ViewOperationsPage.xaml";
-                }));
-            }
-        }
-
-        private ICommand _windowsReference;
-        public ICommand WindowsReference
-        {
-            get
-            {
-                return _windowsReference ?? (_windowsReference = new RelayCommand((param) =>
-                {
-                    FrameSource = "Reference.xaml";
-                }));
-            }
-        }
-
-        private ICommand _windowsOptions;
-        public ICommand WindowsOptions
-        {
-            get
-            {
-                return _windowsOptions ?? (_windowsOptions = new RelayCommand((param) =>
-                {
-                    FrameSource = "Options.xaml";
-                }));
-            }
-        }
-
-        private ICommand _windowsIpCameras;
-
-        public ICommand WindowsIpCameras
-        {
-            get
-            {
-                return _windowsIpCameras ?? (_windowsIpCameras = new RelayCommand((param) =>
-                {
-                    FrameSource = "IpCameras.xaml";
+                    FrameSource = (string)param;
                 }));
             }
         }
