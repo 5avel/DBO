@@ -15,13 +15,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal"  >
-            <Button Margin="5 0 0 0" Content="Группы/Товары" Command="{Binding GroupsGoodsPage}" />
+            <Button Margin="5 0 0 0" Content="Группы/Товары" Command="{Binding SetReferenceFrameSourceCommand}" CommandParameter="ViewsReference/ViewGroupsGoodsPage.xaml" />
             <Button Margin="5 0 0 0" Content="Единицы измерения"   />
             <Button Margin="5 0 0 0" Content="Магазины"  />
             <Button Margin="5 0 0 0" Content="Склады"   />
         </StackPanel>
 
-        <Frame Source="{Binding ReferenceFrameSource}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+        <Frame Source="{Binding ReferenceFrameSource, TargetNullValue=ViewsReference/ViewGroupsGoodsPage.xaml}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
     </Grid>
 
 </Page>

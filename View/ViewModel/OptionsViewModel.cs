@@ -24,16 +24,16 @@ namespace DBO.ViewModel
 
         public OptionsViewModel() // КОНСТРУКТОР
         {
-            OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml"; // вид при старте
+           
         }
 
 
-        private ICommand _optionsPage;
-        public ICommand OptionsPage
+        private ICommand _setOptionsFrameSourceCommand;
+        public ICommand SetOptionsFrameSourceCommand
         {
             get
             {
-                return _optionsPage ?? (_optionsPage = new RelayCommand((param) =>
+                return _setOptionsFrameSourceCommand ?? (_setOptionsFrameSourceCommand = new RelayCommand((param) =>
                 {
                     OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml";
                 }));

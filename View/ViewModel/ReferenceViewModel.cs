@@ -24,18 +24,18 @@ namespace DBO.ViewModel
 
         public ReferenceViewModel() // КОНСТРУКТОР
         {
-            ReferenceFrameSource = "ViewsReference/ViewGroupsGoodsPage.xaml"; // вид при старте
+           
         }
 
 
-        private ICommand _optionsPage;
-        public ICommand OptionsPage
+        private ICommand _setReferenceFrameSourceCommand;
+        public ICommand SetReferenceFrameSourceCommand
         {
             get
             {
-                return _optionsPage ?? (_optionsPage = new RelayCommand((param) =>
+                return _setReferenceFrameSourceCommand ?? (_setReferenceFrameSourceCommand = new RelayCommand((param) =>
                 {
-                    ReferenceFrameSource = "ViewsReference/ViewGroupsGoodsPage.xaml";
+                    ReferenceFrameSource = (string)param;
                 }));
             }
         }
