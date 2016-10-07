@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DBO.View
+namespace DBO.View.ViewsOptions
 {
     /// <summary>
     /// Логика взаимодействия для ViewGoodsPage.xaml

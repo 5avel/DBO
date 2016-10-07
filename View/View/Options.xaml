@@ -17,9 +17,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal"  >
             <Button Margin="5 0 0 0" Content="Оформление" Command="{Binding SetOptionsFrameSourceCommand}" CommandParameter="ViewsOptions/ViewInterfesPage.xaml" />
             <Button Margin="5 0 0 0" Content="Настройки"   />
+            <Button Margin="5 0 0 0" Content="Тест открытия окна"  Command="{Binding SetOptionsFrameSourceCommand}" CommandParameter="ViewsOptions/TestOpenWindowPage.xaml"  />
         </StackPanel>
 
-        <Frame Source="{Binding OptionsFrameSource, TargetNullValue=ViewsOptions/ViewInterfesPage.xaml}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+        <Frame Source="{Binding  OptionsFrameSource, TargetNullValue=ViewsOptions/ViewInterfesPage.xaml }" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
     </Grid>
 
 </Page>

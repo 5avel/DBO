@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DBO.ViewModel;
 
-namespace DBO.View
+namespace DBO.View.ViewsOptions
 {
     /// <summary>
-    /// Логика взаимодействия для ViewGoodsPage.xaml
+    /// Логика взаимодействия для TestOpenWindowPage.xaml
     /// </summary>
-    public partial class Options : Page
+    public partial class TestOpenWindowPage : Page
     {
-        public Options()
+        public TestOpenWindowPage()
         {
             InitializeComponent();
-            //var optionsViewModel = DataContext as OptionsViewModel;
-            //if (optionsViewModel == null) return;
-            //if(optionsViewModel.OptionsFrameSource == null)
-            //    optionsViewModel.OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml";
         }
     }
 }

@@ -35,8 +35,10 @@ namespace DBO.ViewModel
             {
                 return _setOptionsFrameSourceCommand ?? (_setOptionsFrameSourceCommand = new RelayCommand((param) =>
                 {
-                    OptionsFrameSource = "ViewsOptions/ViewInterfesPage.xaml";
-                }));
+                    OptionsFrameSource = (string)param;
+                }
+                //,param => optionsFrameSource != (string)param
+                ));
             }
         }
 
