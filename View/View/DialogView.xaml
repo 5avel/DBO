@@ -3,17 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DBO.View"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="{Binding Title}" SizeToContent="WidthAndHeight"
+        
+        SizeToContent="WidthAndHeight"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"      
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        FontFamily="{StaticResource MaterialDesignFont}">
+        FontFamily="{StaticResource MaterialDesignFont}"
+        BorderThickness="1" 
+        GlowBrush="Black"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+                       Topmost="True"
+                       Title="{Binding Title}">
     <Grid>
         <ContentPresenter Content="{Binding }" />
     </Grid>

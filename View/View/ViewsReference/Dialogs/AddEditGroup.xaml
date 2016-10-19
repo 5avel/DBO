@@ -6,25 +6,33 @@
              xmlns:local="clr-namespace:DBO.View.ViewsReference.Dialogs"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Width="400" Height="300">
+             d:DesignHeight="300" d:DesignWidth="300" Width="400" Height="300"
+             xmlns:viewmodel="clr-namespace:DBO.ViewModel.VMReference.Dialogs"
+             d:DataContext="{d:DesignInstance viewmodel:AddEditGroupeViewModel,IsDesignTimeCreatable=True}">
 
-    <StackPanel>
-
-        <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Groupe.Name}" />
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45">
                 <Button Command="{Binding RemoveParentGroupCommand}" Content="Очистить" Margin="5" />
                 <ComboBox ItemsSource="{Binding GroupeParents}" IsEnabled="{Binding IsSelectionParentEnabled}"
-                              DisplayMemberPath="NameForList"  SelectedItem="{Binding Groupe.Parent}"
+                              DisplayMemberPath="NameForList"  SelectedItem="{Binding Parent}"
                          Width="200">
                 </ComboBox>
             </StackPanel>
-
-            
-        
-        <Button Command="{Binding UpdateGroupCommand}" >Save</Button>
-        <Button Command="{Binding CloseCommand}">Закрыть</Button>
         </StackPanel>
-    
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+            <Button Command="{Binding ParentViewModel.UpdateGroupCommand}" CommandParameter="{Binding Groupe}" Margin="5">ОК</Button>
+            <Button Command="{Binding CloseCommand}" Margin="5">Закрыть</Button>
+        </StackPanel>
+    </Grid>
+
 </UserControl>

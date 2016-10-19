@@ -167,16 +167,16 @@ namespace DBO.ViewModel
 
                                var item = param as GroupVM;
                                if (item == null) return;
-                               
+
                                var child = new AddEditGroupeViewModel()
                                {
-                                   Title = "",
-                                   Groupe = param as GroupVM,
-                                   GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0)
+                                   Title = "Редактирование Группы товаров",
+                                   Groupe = item,
+                                   GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0),
+                                   ParentViewModel = this
+                                   
                                };
-                               Show(child);
-
-                               //IsShowGroupFlayout = true;
+                               Show(child);                               
                            },
                            param => param != null));
             }
@@ -188,12 +188,7 @@ namespace DBO.ViewModel
             {
                 return _updateGroupCommand ?? (_updateGroupCommand = new RelayCommand(param =>
                        {
-                           //var grp = NewOrEditingGroupe.ToGroup();
-                           //grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
-
-                           //new GroupsProvider().UpdateGoup(grp);
-
-                           //IsShowGroupFlayout = false;
+                           
                            LoadGroupCommand.Execute(null);
                        }));
             }

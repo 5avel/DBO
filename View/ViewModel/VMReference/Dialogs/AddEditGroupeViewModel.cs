@@ -12,6 +12,13 @@ namespace DBO.ViewModel.VMReference.Dialogs
 {
     public class AddEditGroupeViewModel : ViewModelBase
     {
+        public AddEditGroupeViewModel()
+        {
+           
+        }
+
+        public dynamic ParentViewModel { set; get; }
+
         private GroupVM _groupe;
         public GroupVM Groupe
         {
@@ -23,7 +30,18 @@ namespace DBO.ViewModel.VMReference.Dialogs
             }
         }
 
-            
+        private GroupVM _parent;
+        public GroupVM Parent
+        {
+            get { return _parent; }
+            set
+            {
+                _parent = GroupeParents?.SingleOrDefault(x => x.ID == value?.ID);
+                OnPropertyChanged();
+            }
+        }
+
+
         private IList<GroupVM> _groupeParents;
         public IList<GroupVM> GroupeParents
         {
@@ -31,6 +49,7 @@ namespace DBO.ViewModel.VMReference.Dialogs
             set
             {
                 _groupeParents = value;
+                Parent = GroupeParents?.SingleOrDefault(x => x.ID == Groupe?.ParentId);
                 OnPropertyChanged();
             }
         }

@@ -41,12 +41,14 @@ namespace DBO.ViewModel.MVVMLib
         /// Метод показа ViewModel в окне
         /// 
         /// viewModel">
-        protected void Show(ViewModelBase viewModel)
+        protected void Show(ViewModelBase viewModel, bool isModal = false)
         {
             viewModel._wnd = new DialogView();
             viewModel._wnd.DataContext = viewModel;
             viewModel._wnd.Closed += (sender, e) => Closed();
-            viewModel._wnd.Show();
+
+            if(isModal) viewModel._wnd.ShowDialog();
+            else viewModel._wnd.Show();
         }
 
         /// 
