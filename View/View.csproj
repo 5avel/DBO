@@ -194,6 +194,10 @@
     <Compile Include="Model\Migrations\DBODataContextModelSnapshot.cs" />
     <Compile Include="ViewModel\ReferenceViewModel.cs" />
     <Compile Include="ViewModel\VMOptions\InterfesViewModel.cs" />
+    <Compile Include="ViewModel\VMReference\Dialogs\AddEditGroupeViewModel.cs" />
+    <Compile Include="View\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
@@ -228,9 +232,16 @@
     <Compile Include="ViewModel\ViewDataModel\GoodVM.cs" />
     <Compile Include="ViewModel\ViewDataModel\GroupVM.cs" />
     <Compile Include="ViewModel\VMReference\GoodsViewModel.cs" />
+    <Compile Include="View\ViewsReference\Dialogs\AddEditGroup.xaml.cs">
+      <DependentUpon>AddEditGroup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewsReference\ViewGroupsGoodsPage.xaml.cs">
       <DependentUpon>ViewGroupsGoodsPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -262,6 +273,10 @@
     <Page Include="View\IpCameras.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewsReference\Dialogs\AddEditGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ViewsReference\ViewGroupsGoodsPage.xaml">
       <SubType>Designer</SubType>

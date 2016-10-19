@@ -36,6 +36,18 @@
             <Button Content="Настройки" Command="{Binding SetMainFrameSourceCommand}" CommandParameter="Options.xaml"  />
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Frame Source="{Binding FrameSource, TargetNullValue=Reference.xaml}" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="731*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Frame Source="{Binding FrameSource, TargetNullValue=Reference.xaml}" HorizontalAlignment="Stretch"
+           VerticalAlignment="Stretch" NavigationUIVisibility="Hidden" Grid.Row="0"/>
+
+        <ProgressBar Grid.Row="1" Height="10"  Value="{Binding UsedMemory}" Maximum="15000" Margin="0" />
+
+
+    </Grid>
+
 
 </Controls:MetroWindow>

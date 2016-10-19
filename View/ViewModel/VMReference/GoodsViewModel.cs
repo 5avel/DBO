@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
 using DBO.ViewModel.ViewDataModel;
+using DBO.ViewModel.VMReference.Dialogs;
 
 namespace DBO.ViewModel
 {
@@ -21,22 +23,16 @@ namespace DBO.ViewModel
         private List<GroupVM> _parenGroupCollection; // Список груп родителей для редактируемой группы или товара
         private ObservableCollection<GroupVM> _groupCollection; // Коллекция Групп товаров
 
-        private GroupVM _newOrEditingGroupe; // Редактируемая или создаваемая группа
-        private GroupVM _newOrEditingGroupeParent; // Родитель редактируемой или создаваемой группы
 
-        private bool _isShowGroupFlayout; // Отображать флайаут для создания или редактирования группы
-        private bool _isAddingGroup; // Состояние добавления группы
-        private bool _isEditingGroup; // Состояние редактированиея группы
-
-        private IAsyncCommand _loadGroupCommand;
-        private RelayCommand<GroupVM> _selectionChangedGroupCommand;
-        private ICommand _addingGroupCommand;
-        private ICommand _addNewGroupCommand;
-        private ICommand _editingGroupCommand;
-        private ICommand _updateGroupCommand;
+        private IAsyncCommand _loadGroupCommand; // Асинхронная загрузка Груп товаров
+        private RelayCommand<GroupVM> _selectionChangedGroupCommand; // Команда для изменения выбранной группы
+        private ICommand _addingGroupCommand; // Начало Добавления новой группы 
+        private ICommand _addNewGroupCommand; // Добавление новой группы
+        private ICommand _editingGroupCommand; // Начало Редактирование выбранной группы
+        private ICommand _updateGroupCommand; // Сохранение после Редактирования выбранной группы
 
         private RelayCommand<GroupVM> _removeGroupCommand; // Команда для удаления выбранной группы
-        private ICommand _removeParentGroupCommand;
+        private ICommand _removeParentGroupCommand; // Убрать родителей у выбранной группы
         #endregion Groups  Privat Filds
 
         #region Properties
@@ -68,54 +64,6 @@ namespace DBO.ViewModel
             }
         }
 
-        public GroupVM NewOrEditingGroupe
-        {
-            get { return _newOrEditingGroupe ?? (_newOrEditingGroupe = new GroupVM()); }
-            set
-            {
-                _newOrEditingGroupe = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public GroupVM NewOrEditingGroupeParent
-        {
-            get { return _newOrEditingGroupeParent; }
-            set
-            {
-                _newOrEditingGroupeParent = ParenGroups.SingleOrDefault(x => x.ID == value?.ID);
-                OnPropertyChanged();
-            }
-        }
-
-        public bool IsShowGroupFlayout
-        {
-            get { return _isShowGroupFlayout; }
-            set
-            {
-                _isShowGroupFlayout = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool IsAddingGroup
-        {
-            get { return _isAddingGroup; }
-            private set
-            {
-                _isAddingGroup = value;
-                IsEditingGroup = !_isAddingGroup;
-                OnPropertyChanged();
-            }
-        }
-        public bool IsEditingGroup
-        {
-            get { return _isEditingGroup; }
-            private set
-            {
-                _isEditingGroup = value;
-                OnPropertyChanged();
-            }
-        }
 
         #endregion Groups Properties
 
@@ -175,9 +123,7 @@ namespace DBO.ViewModel
             get
             {
                 return _selectionChangedGroupCommand ??
-                       (_selectionChangedGroupCommand = new RelayCommand<GroupVM>(param => { SelectedGroup = param; },
-                           null
-                       ));
+                       (_selectionChangedGroupCommand = new RelayCommand<GroupVM>(param => SelectedGroup = param, null));
             }
         }
 
@@ -187,9 +133,9 @@ namespace DBO.ViewModel
             {
                 return _addingGroupCommand ?? (_addingGroupCommand = new RelayCommand(param =>
                        {
-                           IsAddingGroup = true;
-                           IsShowGroupFlayout = true;
-                           NewOrEditingGroupe = new GroupVM();
+                           //IsAddingGroup = true;
+                           //IsShowGroupFlayout = true;
+                           //NewOrEditingGroupe = new GroupVM();
                            ParenGroups = TreeToList(GoodsGroupeCollection);
                        }));
             }
@@ -201,10 +147,10 @@ namespace DBO.ViewModel
             {
                 return _addNewGroupCommand ?? (_addNewGroupCommand = new RelayCommand(param =>
                        {
-                           var grp = NewOrEditingGroupe.ToGroup();
-                           grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
-                           new GroupsProvider().AddGoup(grp);
-                           IsShowGroupFlayout = false;
+                           //var grp = NewOrEditingGroupe.ToGroup();
+                           //grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
+                           //new GroupsProvider().AddGoup(grp);
+                           //IsShowGroupFlayout = false;
                            LoadGroupCommand.Execute(null);
                        }));
             }
@@ -218,20 +164,19 @@ namespace DBO.ViewModel
                            param =>
                            {
                                // Действие комманды
-                               IsAddingGroup = false;
-                               NewOrEditingGroupe = param as GroupVM;
 
-                               ParenGroups = TreeToList(GoodsGroupeCollection, NewOrEditingGroupe?.ID ?? 0);
-                                   // заполняем коллекцию родителей для выбора
-                               //ParenGroups.Remove(ParenGroups.SingleOrDefault(x => x.ID == NewOrEditingGroupe.ID));
-                                   // удоляем текущий элемент из коллекции родителей
+                               var item = param as GroupVM;
+                               if (item == null) return;
+                               
+                               var child = new AddEditGroupeViewModel()
+                               {
+                                   Title = "",
+                                   Groupe = param as GroupVM,
+                                   GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0)
+                               };
+                               Show(child);
 
-                               // TODO: нужно рекурсивно удолить всех детей из коллекции родителей, для редактируемой группы
-
-                               // TODO:  
-
-                               NewOrEditingGroupeParent = NewOrEditingGroupe?.Parent;
-                               IsShowGroupFlayout = true;
+                               //IsShowGroupFlayout = true;
                            },
                            param => param != null));
             }
@@ -243,12 +188,12 @@ namespace DBO.ViewModel
             {
                 return _updateGroupCommand ?? (_updateGroupCommand = new RelayCommand(param =>
                        {
-                           var grp = NewOrEditingGroupe.ToGroup();
-                           grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
+                           //var grp = NewOrEditingGroupe.ToGroup();
+                           //grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
 
-                           new GroupsProvider().UpdateGoup(grp);
+                           //new GroupsProvider().UpdateGoup(grp);
 
-                           IsShowGroupFlayout = false;
+                           //IsShowGroupFlayout = false;
                            LoadGroupCommand.Execute(null);
                        }));
             }
@@ -277,9 +222,10 @@ namespace DBO.ViewModel
             {
                 return _removeParentGroupCommand ?? (_removeParentGroupCommand = new RelayCommand(param =>
                        {
-                           NewOrEditingGroupeParent = null;
+                           //NewOrEditingGroupeParent = null;
                        },
-                           param => NewOrEditingGroupeParent != null));
+                           null //param => //NewOrEditingGroupeParent != null
+                           ));
             }
         }
 

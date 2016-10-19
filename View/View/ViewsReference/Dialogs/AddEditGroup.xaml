@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="DBO.View.ViewsReference.Dialogs.AddEditGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DBO.View.ViewsReference.Dialogs"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Width="400" Height="300">
+
+    <StackPanel>
+
+        <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Groupe.Name}" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding RemoveParentGroupCommand}" Content="Очистить" Margin="5" />
+                <ComboBox ItemsSource="{Binding GroupeParents}" IsEnabled="{Binding IsSelectionParentEnabled}"
+                              DisplayMemberPath="NameForList"  SelectedItem="{Binding Groupe.Parent}"
+                         Width="200">
+                </ComboBox>
+            </StackPanel>
+
+            
+        
+        <Button Command="{Binding UpdateGroupCommand}" >Save</Button>
+        <Button Command="{Binding CloseCommand}">Закрыть</Button>
+        </StackPanel>
+    
+</UserControl>
