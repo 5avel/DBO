@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DBO.View;
 
 namespace DBO.ViewModel.MVVMLib
 {
@@ -37,57 +34,6 @@ namespace DBO.ViewModel.MVVMLib
         //    if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
 
 
-        /// 
-        /// Метод показа ViewModel в окне
-        /// 
-        /// viewModel">
-        protected void Show(ViewModelBase viewModel, bool isModal = false)
-        {
-            viewModel._wnd = new DialogView();
-            viewModel._wnd.DataContext = viewModel;
-            viewModel._wnd.Closed += (sender, e) => Closed();
-
-            if(isModal) viewModel._wnd.ShowDialog();
-            else viewModel._wnd.Show();
-        }
-
-        /// 
-        /// Окно в котором показывается текущий ViewModel
-        ///
-        private DialogView _wnd = null;
-
-        /// 
-        /// Заголовок окна
-        /// 
-        private string _title;
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// 
-        /// Методы вызываемый окном при закрытии
-        /// 
-        protected virtual void Closed() { }
-
-        /// 
-        /// Методы вызываемый для закрытия окна связанного с ViewModel
-        /// 
-        public bool Close()
-        {
-            var result = false;
-            if (_wnd != null)
-            {
-                _wnd.Close();
-                _wnd = null;
-                result = true;
-            }
-            return result;
-        }
+      
     }
 }

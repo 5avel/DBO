@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
-using DBO.ViewModel.ViewDataModel;
+using DBO.Model.DataModel;
+using DBO.Model;
 
 namespace DBO.ViewModel.VMReference.Dialogs
 {
-    public class AddEditGroupeViewModel : ViewModelBase
+    public class AddEditGroupeViewModel : ViewModelDialogBase
     {
         public AddEditGroupeViewModel()
         {
            
         }
 
-        public dynamic ParentViewModel { set; get; }
-
-        private GroupVM _groupe;
-        public GroupVM Groupe
+        private Group _groupe;
+        public Group CurentGroup
         {
             get { return _groupe; }
             set
@@ -30,8 +29,8 @@ namespace DBO.ViewModel.VMReference.Dialogs
             }
         }
 
-        private GroupVM _parent;
-        public GroupVM Parent
+        private Group _parent;
+        public Group Parent
         {
             get { return _parent; }
             set
@@ -42,15 +41,35 @@ namespace DBO.ViewModel.VMReference.Dialogs
         }
 
 
-        private IList<GroupVM> _groupeParents;
-        public IList<GroupVM> GroupeParents
+        private IList<Group> _groupeParents;
+        public IList<Group> GroupeParents
         {
             get { return _groupeParents; }
             set
             {
                 _groupeParents = value;
-                Parent = GroupeParents?.SingleOrDefault(x => x.ID == Groupe?.ParentId);
+                Parent = GroupeParents?.SingleOrDefault(x => x.ID == CurentGroup?.ParentId);
                 OnPropertyChanged();
+            }
+        }
+
+        private ICommand _okCommand;
+        public ICommand OkCommand
+        {
+            get
+            {
+                return _okCommand ?? (_okCommand = new RelayCommand(
+                    param =>
+                        {
+                            using (var db = new DBODataContext())
+                            {
+                                CurentGroup.Parent = Parent;
+                                db.Groups.Update(CurentGroup);
+                                db.SaveChanges();
+                                
+                            }
+                        }
+                ));
             }
         }
 

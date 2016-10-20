@@ -192,6 +192,8 @@
       <DependentUpon>20160817143109_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Migrations\DBODataContextModelSnapshot.cs" />
+    <Compile Include="ViewModel\MVVMLib\Massanger.cs" />
+    <Compile Include="ViewModel\MVVMLib\ViewModelDialogBase.cs" />
     <Compile Include="ViewModel\ReferenceViewModel.cs" />
     <Compile Include="ViewModel\VMOptions\InterfesViewModel.cs" />
     <Compile Include="ViewModel\VMReference\Dialogs\AddEditGroupeViewModel.cs" />
@@ -229,8 +231,6 @@
     <Compile Include="ViewModel\MVVMLib\RelayCommandGeneric.cs" />
     <Compile Include="ViewModel\MVVMLib\ViewModelBase.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
-    <Compile Include="ViewModel\ViewDataModel\GoodVM.cs" />
-    <Compile Include="ViewModel\ViewDataModel\GroupVM.cs" />
     <Compile Include="ViewModel\VMReference\GoodsViewModel.cs" />
     <Compile Include="View\ViewsReference\Dialogs\AddEditGroup.xaml.cs">
       <DependentUpon>AddEditGroup.xaml</DependentUpon>

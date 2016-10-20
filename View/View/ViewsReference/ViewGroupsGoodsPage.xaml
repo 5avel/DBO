@@ -8,7 +8,7 @@
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
      xmlns:convert="clr-namespace:DBO.View.ValueConverters"
      xmlns:viewModel1="clr-namespace:DBO.ViewModel"
-     xmlns:vdm="clr-namespace:DBO.ViewModel.ViewDataModel"
+     xmlns:vdm="clr-namespace:DBO.Model.DataModel"
      mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="700"
       Title="ViewGoodsPage">
@@ -102,7 +102,7 @@
                 </i:Interaction.Triggers>
 
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type vdm:GroupVM}"  ItemsSource="{Binding ChildrenGroups}">
+                    <HierarchicalDataTemplate DataType="{x:Type vdm:Group}"  ItemsSource="{Binding ChildrenGroups}">
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>

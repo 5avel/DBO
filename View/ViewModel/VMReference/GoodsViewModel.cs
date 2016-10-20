@@ -5,8 +5,9 @@ using System.Linq;
 using System.Windows.Input;
 using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
-using DBO.ViewModel.ViewDataModel;
 using DBO.ViewModel.VMReference.Dialogs;
+using DBO.Model.DataModel;
+using System.Windows;
 
 namespace DBO.ViewModel
 {
@@ -19,34 +20,34 @@ namespace DBO.ViewModel
 
         #region Groups Privat Filds
 
-        private GroupVM _selectedGroup; // Выбранная группа
-        private List<GroupVM> _parenGroupCollection; // Список груп родителей для редактируемой группы или товара
-        private ObservableCollection<GroupVM> _groupCollection; // Коллекция Групп товаров
+        private Group _selectedGroup; // Выбранная группа
+        private List<Group> _parenGroupCollection; // Список груп родителей для редактируемой группы или товара
+        private ObservableCollection<Group> _groupCollection; // Коллекция Групп товаров
 
 
         private IAsyncCommand _loadGroupCommand; // Асинхронная загрузка Груп товаров
-        private RelayCommand<GroupVM> _selectionChangedGroupCommand; // Команда для изменения выбранной группы
+        private RelayCommand<Group> _selectionChangedGroupCommand; // Команда для изменения выбранной группы
         private ICommand _addingGroupCommand; // Начало Добавления новой группы 
         private ICommand _addNewGroupCommand; // Добавление новой группы
         private ICommand _editingGroupCommand; // Начало Редактирование выбранной группы
         private ICommand _updateGroupCommand; // Сохранение после Редактирования выбранной группы
 
-        private RelayCommand<GroupVM> _removeGroupCommand; // Команда для удаления выбранной группы
+        private RelayCommand<Group> _removeGroupCommand; // Команда для удаления выбранной группы
         private ICommand _removeParentGroupCommand; // Убрать родителей у выбранной группы
         #endregion Groups  Privat Filds
 
         #region Properties
 
         #region Groups Properties
-        public GroupVM SelectedGroup // Выбранная группа
+        public Group SelectedGroup // Выбранная группа
         {
             get { return _selectedGroup; }
             set { _selectedGroup = value; OnPropertyChanged(); }
         }
 
-        public List<GroupVM> ParenGroups
+        public List<Group> ParenGroups
         {
-            get { return _parenGroupCollection ?? (_parenGroupCollection = new List<GroupVM>()); }
+            get { return _parenGroupCollection ?? (_parenGroupCollection = new List<Group>()); }
             set
             {
                 _parenGroupCollection = value;
@@ -54,9 +55,9 @@ namespace DBO.ViewModel
             }
         }
 
-        public ObservableCollection<GroupVM> GoodsGroupeCollection
+        public ObservableCollection<Group> GoodsGroupeCollection
         {
-            get { return _groupCollection ?? (_groupCollection = new ObservableCollection<GroupVM>()); }
+            get { return _groupCollection ?? (_groupCollection = new ObservableCollection<Group>()); }
             set
             {
                 _groupCollection = value;
@@ -81,9 +82,9 @@ namespace DBO.ViewModel
         /// <param name="tree"> List<GroupVM> </param>
         /// <param name="level"> уровень вложенности. для внутренней реализации рекурсии.</param>
         /// <returns> List<GroupVM> </returns>
-        private static List<GroupVM> TreeToList(IEnumerable<GroupVM> tree, int idToSkip = 0, string level = "")
+        private static List<Group> TreeToList(IEnumerable<Group> tree, int idToSkip = 0, string level = "")
         {
-            var list = new List<GroupVM>();
+            var list = new List<Group>();
             foreach (var item in tree)
             {
                 if (item.ID == idToSkip) continue;
@@ -109,10 +110,8 @@ namespace DBO.ViewModel
                 return _loadGroupCommand ?? (_loadGroupCommand = AsyncCommand.Create(
                            async () =>
                            {
-                               GoodsGroupeCollection.Clear();
                                var groups = await new GroupsProvider().GetAllGoupsAsync();
-                               foreach (var item in groups)
-                                   GoodsGroupeCollection.Add(GroupVM.CopyTreeChildren(item));
+                               GoodsGroupeCollection = new ObservableCollection<Group>(groups);
                            }
                        ));
             }
@@ -123,7 +122,7 @@ namespace DBO.ViewModel
             get
             {
                 return _selectionChangedGroupCommand ??
-                       (_selectionChangedGroupCommand = new RelayCommand<GroupVM>(param => SelectedGroup = param, null));
+                       (_selectionChangedGroupCommand = new RelayCommand<Group>(param => SelectedGroup = param, null));
             }
         }
 
@@ -165,21 +164,24 @@ namespace DBO.ViewModel
                            {
                                // Действие комманды
 
-                               var item = param as GroupVM;
+                               var item = param as Group;
                                if (item == null) return;
 
                                var child = new AddEditGroupeViewModel()
                                {
                                    Title = "Редактирование Группы товаров",
-                                   Groupe = item,
-                                   GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0),
-                                   ParentViewModel = this
-                                   
+                                   CurentGroup = item,
+                                   GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0)
                                };
-                               Show(child);                               
+                               child.Show();                               
                            },
                            param => param != null));
             }
+        }
+
+        private void Child_OkEvent(object sender, EventArgs e)
+        {
+            UpdateGroupCommand.Execute(false);
         }
 
         public ICommand UpdateGroupCommand
@@ -200,10 +202,10 @@ namespace DBO.ViewModel
         {
             get
             {
-                return _removeGroupCommand ?? (_removeGroupCommand = new RelayCommand<GroupVM>(
+                return _removeGroupCommand ?? (_removeGroupCommand = new RelayCommand<Group>(
                            async param =>
                            {
-                               await new GroupsProvider().RemoveGoupAsync(param.ToGroup());
+                               await new GroupsProvider().RemoveGoupAsync(param);
                                await LoadGroupCommand.ExecuteAsync(null);
                            },
                            // TODO можно удолить только если нет подгруп и товаров!

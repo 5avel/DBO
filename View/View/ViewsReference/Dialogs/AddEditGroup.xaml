@@ -18,7 +18,7 @@
         
         <StackPanel Orientation="Vertical" Grid.Row="0">
             <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Groupe.Name}" />
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CurentGroup.Name}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45">
                 <Button Command="{Binding RemoveParentGroupCommand}" Content="Очистить" Margin="5" />
@@ -30,7 +30,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
-            <Button Command="{Binding ParentViewModel.UpdateGroupCommand}" CommandParameter="{Binding Groupe}" Margin="5">ОК</Button>
+            <Button Command="{Binding OkCommand}" Margin="5">ОК</Button>
             <Button Command="{Binding CloseCommand}" Margin="5">Закрыть</Button>
         </StackPanel>
     </Grid>

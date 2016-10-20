@@ -15,6 +15,9 @@ namespace DBO.Model.DataModel
         [Required] // Обязательный
         [StringLength(32, MinimumLength = 5)]
         public string Name { set; get; }
+
+        [NotMapped]
+        public string NameForList { set; get; }
         public bool IsExpanded { set; get; }
         public bool IsSelected { set; get; }
 

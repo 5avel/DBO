@@ -16,8 +16,11 @@ namespace DBO.Model.DAL
         /// <returns></returns>
         public async Task<List<Group>> GetAllGoupsAsync()
         {
+            
             using (var db = new DBODataContext())
             {
+                db.ChangeTracker.AutoDetectChangesEnabled = true;
+               
                // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
                 var groups = await db.Groups
                     .Include(x => x.ChildrenGroups)
