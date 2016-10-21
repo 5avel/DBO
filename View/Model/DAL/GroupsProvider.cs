@@ -42,6 +42,18 @@ namespace DBO.Model.DAL
             }
         }
 
+        public Group GetGoupsByID(int? id)
+        {
+            using (var db = new DBODataContext())
+            {
+                // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+                var group = db.Groups
+                    .Where(x => x.ID == id)
+                    .FirstOrDefault();
+                return group;
+            }
+        }
+
         public async Task RemoveGoupAsync(Group g)
         {
             using (var db = new DBODataContext())

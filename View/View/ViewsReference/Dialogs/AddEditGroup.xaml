@@ -18,7 +18,7 @@
         
         <StackPanel Orientation="Vertical" Grid.Row="0">
             <TextBox Margin="10"  materialDesign:HintAssist.Hint="Название группы:" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CurentGroup.Name}" />
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CurentGroup.Name}"  />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45">
                 <Button Command="{Binding RemoveParentGroupCommand}" Content="Очистить" Margin="5" />

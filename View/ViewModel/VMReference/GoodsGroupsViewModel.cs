@@ -16,9 +16,18 @@ namespace DBO.ViewModel
         public GoodsGroupsViewModel() // КОНСТРУКТОР
         {
             LoadGroupCommand.ExecuteAsync(null); // вызов комманды загрузки из БД списка групп
+            _messanger = Massanger.getInstance();
+            _messanger.MessageReceivedEvent += _messanger_MessageReceivedEvent;
+        }
+
+        private void _messanger_MessageReceivedEvent(string message)
+        {
+            if (message == "GTU") LoadGroupCommand.Execute(null);
         }
 
         #region Groups Privat Filds
+
+        private Massanger _messanger; // Объект для одменна сообщениями
 
         private Group _selectedGroup; // Выбранная группа
         private List<Group> _parenGroupCollection; // Список груп родителей для редактируемой группы или товара
@@ -140,21 +149,6 @@ namespace DBO.ViewModel
             }
         }
 
-        public ICommand AddNewGroupCommand
-        {
-            get
-            {
-                return _addNewGroupCommand ?? (_addNewGroupCommand = new RelayCommand(param =>
-                       {
-                           //var grp = NewOrEditingGroupe.ToGroup();
-                           //grp.ParentId = NewOrEditingGroupeParent?.ToGroup().ID;
-                           //new GroupsProvider().AddGoup(grp);
-                           //IsShowGroupFlayout = false;
-                           LoadGroupCommand.Execute(null);
-                       }));
-            }
-        }
-
         public ICommand EditingGroupCommand
         {
             get
@@ -162,8 +156,6 @@ namespace DBO.ViewModel
                 return _editingGroupCommand ?? (_editingGroupCommand = new RelayCommand(
                            param =>
                            {
-                               // Действие комманды
-
                                var item = param as Group;
                                if (item == null) return;
 
@@ -173,28 +165,14 @@ namespace DBO.ViewModel
                                    CurentGroup = item,
                                    GroupeParents = TreeToList(GoodsGroupeCollection, item.ID ?? 0)
                                };
+                               
                                child.Show();                               
                            },
                            param => param != null));
             }
         }
 
-        private void Child_OkEvent(object sender, EventArgs e)
-        {
-            UpdateGroupCommand.Execute(false);
-        }
 
-        public ICommand UpdateGroupCommand
-        {
-            get
-            {
-                return _updateGroupCommand ?? (_updateGroupCommand = new RelayCommand(param =>
-                       {
-                           
-                           LoadGroupCommand.Execute(null);
-                       }));
-            }
-        }
         /// <summary>
         /// Команда для удоления выбранной группы
         /// </summary>
@@ -210,19 +188,6 @@ namespace DBO.ViewModel
                            },
                            // TODO можно удолить только если нет подгруп и товаров!
                            param => param != null));
-            }
-        }
-
-        public ICommand RemoveParentGroupCommand
-        {
-            get
-            {
-                return _removeParentGroupCommand ?? (_removeParentGroupCommand = new RelayCommand(param =>
-                       {
-                           //NewOrEditingGroupeParent = null;
-                       },
-                           null //param => //NewOrEditingGroupeParent != null
-                           ));
             }
         }
 

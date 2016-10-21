@@ -231,7 +231,7 @@
     <Compile Include="ViewModel\MVVMLib\RelayCommandGeneric.cs" />
     <Compile Include="ViewModel\MVVMLib\ViewModelBase.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
-    <Compile Include="ViewModel\VMReference\GoodsViewModel.cs" />
+    <Compile Include="ViewModel\VMReference\GoodsGroupsViewModel.cs" />
     <Compile Include="View\ViewsReference\Dialogs\AddEditGroup.xaml.cs">
       <DependentUpon>AddEditGroup.xaml</DependentUpon>
     </Compile>
