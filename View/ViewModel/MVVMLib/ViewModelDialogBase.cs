@@ -1,15 +1,14 @@
 ﻿using DBO.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBO.ViewModel.MVVMLib
 {
     public class ViewModelDialogBase : ViewModelBase
     {
-        
+
+        public delegate void AccountStateHandler();// Объявляем делегат
+        public event AccountStateHandler DialogWindowClosingEvent; // Событие при получении сообщения
+
+
         /// 
         /// Метод показа ViewModel в окне
         /// 
@@ -59,6 +58,7 @@ namespace DBO.ViewModel.MVVMLib
                 _wnd.Close();
                 _wnd = null;
                 result = true;
+                DialogWindowClosingEvent?.Invoke();
             }
             return result;
         }

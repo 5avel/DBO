@@ -13,21 +13,16 @@ namespace DBO.ViewModel.VMReference.Dialogs
 {
     public class AddEditGroupeViewModel : ViewModelDialogBase
     {
-        private Massanger _massanger;
-
-        public AddEditGroupeViewModel()
+        public AddEditGroupeViewModel(IList<Group> Parents, string windowTitle = "", Group grp = null )
         {
-            _massanger = Massanger.getInstance();
-            _massanger.MessageReceivedEvent += _massanger_MessageReceivedEvent;
+            isAdding = grp == null;
+            CurentGroup = grp ?? new Group();
+            Parent = CurentGroup.Parent;
+            GroupeParents = Parents;
         }
 
-        private void _massanger_MessageReceivedEvent(string message)
-        {
-            if (message == "GTU")
-            {
-                CurentGroup = new GroupsProvider().GetGoupsByID(_groupe.ID);
-            }
-        }
+
+        private bool isAdding = false;
 
         private Group _groupe;
         public Group CurentGroup
@@ -72,11 +67,10 @@ namespace DBO.ViewModel.VMReference.Dialogs
                 return _okCommand ?? (_okCommand = new RelayCommand(
                     param =>
                         {
-                            CurentGroup.Parent = Parent;
                             CurentGroup.ParentId = Parent?.ID;
-                            new GroupsProvider().UpdateGoup(CurentGroup);    
-                            
-                            _massanger.SendMessage("GTU");
+                            if(isAdding) new GroupsProvider().AddGoup(CurentGroup); 
+                            else new GroupsProvider().UpdateGoup(CurentGroup);
+
                             Close();
                         }
                 ));
@@ -88,13 +82,7 @@ namespace DBO.ViewModel.VMReference.Dialogs
         {
             get
             {
-                return _removeParentGroupCommand ?? (_removeParentGroupCommand = new RelayCommand(
-                    param =>
-                    {
-
-                        Parent = null;
-                    }
-                ));
+                return _removeParentGroupCommand ?? (_removeParentGroupCommand = new RelayCommand(param =>Parent = null));
             }
         }
 

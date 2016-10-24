@@ -68,6 +68,8 @@ namespace DBO.Model.DAL
         {
             using (var db = new DBODataContext())
             {
+                g.Parent = null;
+                g.ChildrenGroups = null;
                 db.Update(g);
                 db.SaveChanges();
             }
