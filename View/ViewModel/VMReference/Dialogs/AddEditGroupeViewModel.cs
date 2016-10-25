@@ -8,10 +8,15 @@ using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
 using DBO.Model.DataModel;
 using DBO.Model;
+using System.ComponentModel;
+using System.Collections;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace DBO.ViewModel.VMReference.Dialogs
 {
-    public class AddEditGroupeViewModel : ViewModelDialogBase
+    public class AddEditGroupeViewModel : ViewModelDialogBase, IDataErrorInfo
     {
         public AddEditGroupeViewModel(IList<Group> Parents, string windowTitle = "", Group grp = null )
         {
@@ -87,6 +92,9 @@ namespace DBO.ViewModel.VMReference.Dialogs
         }
 
         private ICommand _closeCommand;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
         public ICommand CloseCommand
         {
             get
@@ -94,6 +102,57 @@ namespace DBO.ViewModel.VMReference.Dialogs
                 return _closeCommand ?? (_closeCommand = new RelayCommand(param => Close()));
             }
         }
+
+
+
+
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
+                return OnValidate(propertyName);
+            }
+        }
+
+        protected virtual string OnValidate(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException("Property may not be null or empty", propertyName);
+
+            string error = string.Empty;
+
+            var value = this.GetType().GetProperty(propertyName).GetValue(this, null);
+            var results = new List<ValidationResult>();
+
+            var context = new ValidationContext(this, null, null) { MemberName = propertyName };
+
+            var result = Validator.TryValidateProperty(value, context, results);
+
+            if (!result)
+            {
+                var validationResult = results.First();
+                error = validationResult.ErrorMessage;
+            }
+            return error;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

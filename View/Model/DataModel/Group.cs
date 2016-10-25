@@ -14,6 +14,7 @@ namespace DBO.Model.DataModel
 
         [Required] // Обязательный
         [StringLength(32, MinimumLength = 5)]
+        [Display(Name = "Название группы")]
         public string Name { set; get; }
 
         [NotMapped]
