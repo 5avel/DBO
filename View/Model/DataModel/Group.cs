@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DBO.Model.DAL;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,10 +20,34 @@ namespace DBO.Model.DataModel
 
         [NotMapped]
         public string NameForList { set; get; }
-        public bool IsExpanded { set; get; }
-        public bool IsSelected { set; get; }
 
+        private bool isExpanded;
+        public bool IsExpanded
+        {
+            get {return isExpanded; }
+            set
+            {
+                isExpanded = value;
+                new GroupsProvider().UpdateGoup(this);
+                OnPropertyChanged();
+            }
+        }
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get  { return isSelected; }
+
+            set
+            {
+                isSelected = value;
+                new GroupsProvider().UpdateGoup(this);
+                OnPropertyChanged();
+            }
+        }
         public virtual IList<Good> Goods { get; set; }
+
+
+
         public Group()
         {
             ChildrenGroups = new List<Group>();

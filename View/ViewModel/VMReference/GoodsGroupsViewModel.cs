@@ -83,7 +83,7 @@ namespace DBO.ViewModel
                 if (item.ID == idToSkip) continue;
                 item.NameForList = level + item.Name;
                 list.Add(item);
-                if (item.ChildrenGroups.Count <= 0) continue;
+                if (item.ChildrenGroups?.Count <= 0) continue;
                 list.AddRange(TreeToList(item.ChildrenGroups, idToSkip, level += "    "));
                 level = "";
             }
@@ -163,7 +163,7 @@ namespace DBO.ViewModel
                                await LoadGroupCommand.ExecuteAsync(null);
                            },
                            // TODO можно удолить только если нет подгруп и товаров!
-                           param => param != null && param.ChildrenGroups.Count == 0 && param.Goods.Count == 0));
+                           param => param != null && param.ChildrenGroups?.Count == 0 && param.Goods?.Count == 0));
             }
         }
 

@@ -3,15 +3,17 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DBO.Model.DataModel
 {
-    public class BaseDataModel : IDataErrorInfo
+    public class BaseDataModel : IDataErrorInfo, INotifyPropertyChanged
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int? ID { set; get; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         // check for general model error
@@ -37,7 +39,14 @@ namespace DBO.Model.DataModel
             }
         }
 
-
+        /// <summary>
+        /// Новый OnPropertyChanged которому вообще не нужно передавать ни свойство ни название свойства)))
+        /// </summary>
+        /// <param name="propertyName"> Заполняется автоматически названием вызываюшего члена!</param>
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }
