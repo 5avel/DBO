@@ -68,9 +68,22 @@ namespace DBO.Model.DAL
         {
             using (var db = new DBODataContext())
             {
-                g.Parent = null;
-                g.ChildrenGroups = null;
-                db.Update(g);
+                var temp = db.Groups.FirstOrDefault(x => x.ID == g.ID);
+                temp.ParentId = g.ParentId;
+                temp.Name = g.Name;
+                db.Update(temp);
+                db.SaveChanges();
+            }
+        }
+
+        public void UpdateGoupIsSelectedAndIsExpandedProperty(Group g)
+        {
+            using (var db = new DBODataContext())
+            {
+                var temp = db.Groups.FirstOrDefault(x => x.ID == g.ID);
+                temp.IsExpanded = g.IsExpanded;
+                temp.IsSelected = g.IsSelected;
+                db.Update(temp);
                 db.SaveChanges();
             }
         }

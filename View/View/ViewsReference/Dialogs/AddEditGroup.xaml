@@ -25,6 +25,7 @@
             <TextBox
                 Margin="10"
                 materialDesign:HintAssist.Hint="Название группы:"
+                SpellCheck.IsEnabled="True"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="{Binding CurentGroup.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
 

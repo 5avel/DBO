@@ -28,12 +28,9 @@ namespace DBO.ViewModel
         private IAsyncCommand _loadGroupCommand; // Асинхронная загрузка Груп товаров
         private RelayCommand<Group> _selectionChangedGroupCommand; // Команда для изменения выбранной группы
         private ICommand _addingGroupCommand; // Начало Добавления новой группы 
-        private ICommand _addNewGroupCommand; // Добавление новой группы
         private ICommand _editingGroupCommand; // Начало Редактирование выбранной группы
-        private ICommand _updateGroupCommand; // Сохранение после Редактирования выбранной группы
 
         private RelayCommand<Group> _removeGroupCommand; // Команда для удаления выбранной группы
-        private ICommand _removeParentGroupCommand; // Убрать родителей у выбранной группы
 
         #endregion Filds
 
@@ -45,7 +42,7 @@ namespace DBO.ViewModel
             set { _selectedGroup = value; OnPropertyChanged(); }
         }
 
-        public List<Group> ParenGroups
+        public List<Group> ParentGroups
         {
             get { return _parenGroupCollection ?? (_parenGroupCollection = new List<Group>()); }
             set
@@ -126,7 +123,7 @@ namespace DBO.ViewModel
                            //IsAddingGroup = true;
                            //IsShowGroupFlayout = true;
                            //NewOrEditingGroupe = new GroupVM();
-                           ParenGroups = TreeToList(GoodsGroupeCollection);
+                           ParentGroups = TreeToList(GoodsGroupeCollection);
                        }));
             }
         }
