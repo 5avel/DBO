@@ -118,12 +118,16 @@ namespace DBO.ViewModel
         {
             get
             {
-                return _addingGroupCommand ?? (_addingGroupCommand = new RelayCommand(param =>
+                return _addingGroupCommand ?? (_addingGroupCommand = new RelayCommand(
+                    param =>
                        {
-                           //IsAddingGroup = true;
-                           //IsShowGroupFlayout = true;
-                           //NewOrEditingGroupe = new GroupVM();
-                           ParentGroups = TreeToList(GoodsGroupeCollection);
+                           Group parent = param as Group;
+
+                           var childWnd = new AddEditGroupeViewModel(TreeToList(GoodsGroupeCollection), "Добавление группы товаров")
+                           { Parent = parent};
+
+                           childWnd.DialogWindowClosingEvent += () => LoadGroupCommand.Execute(null);
+                           childWnd.Show(true);
                        }));
             }
         }
@@ -138,10 +142,10 @@ namespace DBO.ViewModel
                                var item = param as Group;
                                if (item == null) return;
 
-                               var child = new AddEditGroupeViewModel(TreeToList(GoodsGroupeCollection, item.ID ?? 0), "Редактирование Группы товаров", item);
-                               
-                               child.DialogWindowClosingEvent += () => LoadGroupCommand.Execute(null);
-                               child.Show(true);                               
+                               var childWnd = new AddEditGroupeViewModel(TreeToList(GoodsGroupeCollection, item.ID ?? 0), "Редактирование группы товаров", item);
+
+                               childWnd.DialogWindowClosingEvent += () => LoadGroupCommand.Execute(null);
+                               childWnd.Show(true);                               
                            }, param => param != null));
             }
         }

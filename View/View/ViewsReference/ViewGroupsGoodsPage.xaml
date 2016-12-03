@@ -87,6 +87,7 @@
                     Height="30"
                     Margin="0,0,5,0"
                     Command="{Binding AddingGroupCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=groupsTreeView}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                     ToolTip="Добавить новую группу.">
                     <materialDesign:PackIcon Kind="Plus" />
