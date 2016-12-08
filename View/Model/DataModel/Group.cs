@@ -21,18 +21,19 @@ namespace DBO.Model.DataModel
         [NotMapped]
         public string NameForList { set; get; }
 
-        private bool isExpanded;
+        internal bool isExpanded;
         public bool IsExpanded
         {
             get {return isExpanded; }
             set
             {
                 isExpanded = value;
-                new GroupsProvider().UpdateGoup(this);
+                
                 OnPropertyChanged();
+                new GroupsProvider().UpdateGoup(this);
             }
         }
-        private bool isSelected;
+        internal bool isSelected;
         public bool IsSelected
         {
             get  { return isSelected; }
@@ -40,8 +41,9 @@ namespace DBO.Model.DataModel
             set
             {
                 isSelected = value;
-                new GroupsProvider().UpdateGoup(this);
+                
                 OnPropertyChanged();
+                new GroupsProvider().UpdateGoup(this);
             }
         }
         public virtual IList<Good> Goods { get; set; }

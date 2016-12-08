@@ -9,8 +9,6 @@
     xmlns:viewmodel="clr-namespace:DBO.ViewModel.VMReference.Dialogs"
     Width="400"
     Height="300"
-    d:DataContext="{d:DesignInstance viewmodel:AddEditGroupeViewModel,
-                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -25,7 +23,6 @@
             <TextBox
                 Margin="10"
                 materialDesign:HintAssist.Hint="Название группы:"
-                SpellCheck.IsEnabled="True"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="{Binding CurentGroup.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
 
@@ -33,17 +30,17 @@
                 Height="45"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
-                <Button
-                    Margin="5"
-                    Command="{Binding RemoveParentGroupCommand}"
-                    Content="Очистить" />
+                <Button Margin="5" Command="{Binding RemoveParentGroupCommand}" Content="Очистить" />
                 <ComboBox
                     Width="200"
                     DisplayMemberPath="NameForList"
                     IsEnabled="{Binding IsSelectionParentEnabled}"
                     ItemsSource="{Binding GroupeParents}"
-                    SelectedItem="{Binding Parent}" />
+                    SelectedItem="{Binding Parent}" >
+                </ComboBox>
+                
             </StackPanel>
+            
         </StackPanel>
 
         <StackPanel

@@ -71,6 +71,8 @@ namespace DBO.Model.DAL
                 var temp = db.Groups.FirstOrDefault(x => x.ID == g.ID);
                 temp.ParentId = g.ParentId;
                 temp.Name = g.Name;
+                temp.isExpanded = g.IsExpanded;
+                temp.isSelected = g.IsSelected;
                 db.Update(temp);
                 db.SaveChanges();
             }

@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
 using DBO.Model.DataModel;
-using DBO.Model;
 using System.ComponentModel;
-using System.Collections;
-using System.Reflection;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace DBO.ViewModel.VMReference.Dialogs
 {
@@ -25,7 +19,6 @@ namespace DBO.ViewModel.VMReference.Dialogs
             Parent = CurentGroup.Parent;
             GroupeParents = Parents;
         }
-
 
         private bool isAdding = false;
 
@@ -103,9 +96,7 @@ namespace DBO.ViewModel.VMReference.Dialogs
             }
         }
 
-
-
-
+        #region IDataErrorInfo implementation 
 
         public string Error
         {
@@ -142,17 +133,7 @@ namespace DBO.ViewModel.VMReference.Dialogs
             return error;
         }
 
-
-
-
-
-
-
-
-
-
-
-
+        #endregion IDataErrorInfo implementation
 
     }
 }
