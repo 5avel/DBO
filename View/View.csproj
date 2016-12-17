@@ -253,11 +253,9 @@
     <Compile Include="Model\Configuration\ConfigurationManager.cs" />
     <Compile Include="Model\Configuration\SettingsProvider.cs" />
     <Compile Include="Model\DAL\GroupsProvider.cs" />
-    <Compile Include="Model\DAL\IpCameraProvider.cs" />
     <Compile Include="Model\DataModel\BaseDataModel.cs" />
     <Compile Include="Model\DataModel\Good.cs" />
     <Compile Include="Model\DataModel\Group.cs" />
-    <Compile Include="Model\DataModel\IpCamera.cs" />
     <Compile Include="Model\DBODataContext.cs" />
     <Compile Include="Model\Migrations\20160817143109_new.cs" />
     <Compile Include="Model\Migrations\20160817143109_new.Designer.cs">
@@ -284,13 +282,9 @@
     <Compile Include="View\Reference.xaml.cs">
       <DependentUpon>Reference.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IpCameras.xaml.cs">
-      <DependentUpon>IpCameras.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ValueConverters\ComboBoxEmptyItemConverter.cs" />
     <Compile Include="View\ValueConverters\EnumerableNullReplaceConverter.cs" />
     <Compile Include="View\ValueConverters\NullToVisibilityConverter.cs" />
-    <Compile Include="ViewModel\IpCameraViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MVVMLib\AsyncCommand.cs" />
     <Compile Include="ViewModel\MVVMLib\AsyncCommandBase.cs" />
@@ -339,10 +333,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Reference.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\IpCameras.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

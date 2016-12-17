@@ -32,7 +32,6 @@
             <Button Content="Отчеты"  />
             <Button Content="Сервис"  />
             <Button Content="Обмен данными"   />
-            <Button Content="Камеры"  Command="{Binding SetMainFrameSourceCommand}" CommandParameter="IpCameras.xaml" />
             <Button Content="Настройки" Command="{Binding SetMainFrameSourceCommand}" CommandParameter="Options.xaml"  />
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
