@@ -5,11 +5,11 @@ using System.Linq;
 using System.Windows.Input;
 using DBO.Model.DAL;
 using DBO.ViewModel.MVVMLib;
-using DBO.ViewModel.VMReference.Dialogs;
 using DBO.Model.DataModel;
 using System.Windows;
+using DBO.ViewModel.VMReference.Dialogs;
 
-namespace DBO.ViewModel
+namespace DBO.ViewModel.VMReference
 {
     public class GoodsGroupsViewModel : ViewModelBase
     {
